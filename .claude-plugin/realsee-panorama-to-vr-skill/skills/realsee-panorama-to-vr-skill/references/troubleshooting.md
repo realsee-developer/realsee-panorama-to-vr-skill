@@ -13,7 +13,7 @@ Fix:
 - Or, in Claude Code, enable the plugin and fill `userConfig`
 - If `REALSEE_REGION=cn`, register at `my.realsee.cn` or use `https://h5.realsee.com/vrapplink`
 - If `REALSEE_REGION=global`, register at `my.realsee.ai` or use `https://h5.realsee.com/vrapplink`
-- If the region is not known yet, use the unified link and confirm whether the account should be `cn` or `global`
+- If the region is not known yet, use the unified link first and confirm whether the account is `cn` or `global`
 - Then email `developer@realsee.com` to request the official `全景图生成VR` API capability
 - Include your account region, `UserID`, and `IdentityID` in the request email
 

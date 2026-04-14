@@ -1,9 +1,9 @@
 # GitHub Repository Setup
 
-This document describes the recommended GitHub-side configuration for the public repository:
+This document records the GitHub-side configuration for the public repository:
 
 - Repository: `realsee-developer/realsee-panorama-to-vr-skill`
-- Official capability names: `全景图生成VR` / `Panorama-to-VR`
+- User-facing capability name: `全景图生成VR` in Chinese and `Panorama-to-VR` in English
 
 ## Current snapshot
 
@@ -21,14 +21,14 @@ This snapshot matched the repository state when this document was added:
 - Delete branch on merge: disabled
 - Vulnerability alerts: disabled
 
-## Recommended target state
+## Target state
 
 ### About section
 
 - Description:
   `Panorama-to-VR skill for Codex, Claude Code, and Gemini CLI powered by the Realsee Open Platform.`
 - Homepage:
-  Leave empty unless you publish a dedicated product or docs site later.
+  Empty unless a dedicated product or docs site exists.
 - Topics:
   - `realsee`
   - `panorama`
@@ -44,20 +44,16 @@ This snapshot matched the repository state when this document was added:
 
 - Default branch: `main`
 - Issues: enabled
-- Projects: disable if you do not plan to use GitHub Projects for this repository
+- Projects: disabled when GitHub Projects is not used for this repository
 - Wiki: disabled
 - Auto-merge: enabled
 - Delete branch on merge: enabled
 
 ### Merge strategy
 
-Recommended for a small public skill repository:
-
 - Squash merge: enabled
 - Merge commit: disabled
 - Rebase merge: disabled
-
-This keeps the `main` branch history clean and makes release notes easier to read.
 
 ### Security
 
@@ -71,22 +67,22 @@ This keeps the `main` branch history clean and makes release notes easier to rea
 - `main` is the integration branch
 - Stable distribution happens through annotated tags such as `v0.1.0`
 - GitHub Releases are generated from pushed `v*` tags
-- Public consumers should pin a release tag instead of following moving `main`
+- Public installs use a release tag instead of moving `main`
 
 ### Branch protection / rulesets
 
-Recommended once the repository is public, or once your plan supports it:
+Public repositories or upgraded plans can enable these rules:
 
 - Prevent force pushes
 - Prevent branch deletion
-- Require pull request before merging if you want a stricter maintainer workflow
+- Require pull request before merging when a stricter maintainer workflow is used
 - Require passing checks for:
   - `CI`
   - `CodeQL`
 
 Note: when this document was generated, branch protection for this repository returned a GitHub 403 stating that the feature requires a public repository or an upgraded plan.
 
-## Recommended `gh` commands
+## `gh` commands
 
 ### 1. Set description, topics, and baseline settings
 
@@ -115,7 +111,7 @@ gh repo edit realsee-developer/realsee-panorama-to-vr-skill \
 
 ### 2. Make the repository public
 
-Run this only after you have reviewed the repository contents, README, license, and release flow:
+This command changes the repository visibility to public:
 
 ```bash
 gh repo edit realsee-developer/realsee-panorama-to-vr-skill \
@@ -161,7 +157,7 @@ The repository already includes a GitHub Actions workflow that will validate the
 
 ## Manual UI path
 
-If you prefer the GitHub web UI instead of `gh`:
+GitHub web UI path:
 
 1. Open the repository homepage.
 2. Click the gear icon in the `About` box and set description, homepage, and topics.

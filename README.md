@@ -6,11 +6,11 @@
 [![License](https://img.shields.io/github/license/realsee-developer/realsee-panorama-to-vr-skill)](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/blob/main/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/realsee-developer/realsee-panorama-to-vr-skill?style=social)](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/stargazers)
 
-Official capability names: `全景图生成VR` / `Panorama-to-VR`
+User-facing capability name: `全景图生成VR` in Chinese and `Panorama-to-VR` in English.
 
 Turn a local panorama set into a Realsee VR space through a shared Agent Skill runtime.
 
-This repository is designed for **GitHub distribution** under a company organization, not as a standalone `realsee-cli` product. The public repository identity and canonical skill id are both `realsee-panorama-to-vr-skill`.
+This repository is a **GitHub-distributed** skill repository under a company organization. It is not a standalone `realsee-cli` product. The public repository identity and canonical skill id are `realsee-panorama-to-vr-skill`.
 
 It provides one canonical skill plus host adapters for:
 
@@ -20,7 +20,7 @@ It provides one canonical skill plus host adapters for:
 
 The runtime is a bundled Node.js workflow that handles manifest validation or generation, ZIP packaging, upload token retrieval, object upload, task submission, polling, and structured result output.
 
-The repository toolchain is intentionally converged on Node.js:
+The repository toolchain uses Node.js in all three places:
 
 - runtime entrypoints are Node.js
 - maintenance scripts are Node.js
@@ -30,8 +30,8 @@ The repository toolchain is intentionally converged on Node.js:
 
 - `main` is the integration branch for ongoing development.
 - Stable distribution happens through Git tags and GitHub Releases such as `v0.1.0`.
-- Production consumers should pin a release tag instead of installing from moving `main`.
-- When this repository is listed on `skills.sh`, treat that page as a discovery entry; use GitHub Releases for reproducible pinned installs.
+- Production installs use a release tag instead of moving `main`.
+- When this repository is listed on `skills.sh`, that page is a discovery entry. GitHub Releases provide reproducible pinned installs.
 
 ## Repository layout
 
@@ -61,7 +61,7 @@ If you do not have `REALSEE_APP_KEY` / `REALSEE_APP_SECRET` yet, guide by region
 
 - `REALSEE_REGION=cn`: register at `my.realsee.cn` or use `https://h5.realsee.com/vrapplink`
 - `REALSEE_REGION=global`: register at `my.realsee.ai` or use `https://h5.realsee.com/vrapplink`
-- Region not decided yet: use the unified link, then confirm whether the account should be `cn` or `global`
+- Region not decided yet: use the unified link first, then confirm whether the account is `cn` or `global`
 
 After registration, email `developer@realsee.com` to request access to the official `全景图生成VR` API capability. Include your account region, `UserID`, and `IdentityID` in the request.
 
@@ -147,13 +147,13 @@ The runtime writes one isolated working directory per task and always produces:
 - Release flow: [docs/releases.md](./docs/releases.md)
 - GitHub repository setup: [docs/github-repository-setup.md](./docs/github-repository-setup.md)
 
-The canonical skill id stays `realsee-panorama-to-vr-skill` across Codex, Claude Code, and Gemini CLI. See [docs/capability-naming.md](./docs/capability-naming.md) for the naming split.
+The canonical skill id is `realsee-panorama-to-vr-skill` across Codex, Claude Code, and Gemini CLI. See [docs/capability-naming.md](./docs/capability-naming.md) for the naming map.
 
 ## Notes
 
 - This repository does **not** ship an MCP server.
 - This repository does **not** publish a standalone CLI package.
-- Claude users should prefer the bundled plugin wrapper.
+- Claude integration in this repository uses the bundled plugin wrapper.
 - Gemini CLI users can consume the canonical skill directly from `.agents/skills`.
 - For Gemini CLI, use either workspace discovery or a global `skills link/install`, but not both at the same time.
 

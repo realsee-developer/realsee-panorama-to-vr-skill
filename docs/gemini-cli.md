@@ -2,7 +2,7 @@
 
 ## Local clone + link
 
-For a stable production install, pin a Git release tag first:
+Stable production install:
 
 ```bash
 VERSION=v0.1.0
@@ -11,9 +11,7 @@ cd realsee-panorama-to-vr-skill
 npm install
 ```
 
-For development, you can also clone the default branch and install dependencies:
-
-Clone the repository and install dependencies:
+Default-branch development install:
 
 ```bash
 git clone https://github.com/realsee-developer/realsee-panorama-to-vr-skill.git
@@ -30,7 +28,7 @@ npm install --prefix ./.agents/skills/realsee-panorama-to-vr-skill
 Gemini CLI can use this repository in two different ways. Pick exactly one:
 
 1. Workspace discovery
-   Run Gemini inside the cloned repository and let it discover `.agents/skills` directly. This is the preferred development flow and does not require any extra install step.
+   Run Gemini inside the cloned repository and let it discover `.agents/skills` directly. This path requires no extra install step.
 2. Global install or link
    Use this only when you want the skill outside the repository checkout.
 
@@ -48,11 +46,11 @@ You can also install the repository directly from Git:
 gemini skills install https://github.com/realsee-developer/realsee-panorama-to-vr-skill.git
 ```
 
-For reproducible production setups, prefer a pinned tag checkout plus `gemini skills link`, instead of following the moving default branch.
+Reproducible production setups use a pinned tag checkout plus `gemini skills link`.
 
 ## Credentials
 
-Gemini CLI users should export:
+Gemini CLI uses:
 
 - `REALSEE_APP_KEY`
 - `REALSEE_APP_SECRET`
@@ -64,7 +62,7 @@ If you do not have credentials yet:
 
 - `REALSEE_REGION=cn`: register at `my.realsee.cn` or use `https://h5.realsee.com/vrapplink`
 - `REALSEE_REGION=global`: register at `my.realsee.ai` or use `https://h5.realsee.com/vrapplink`
-- Unknown region: use the unified link first, then confirm whether the account should be `cn` or `global`
+- Unknown region: use the unified link first, then confirm whether the account is `cn` or `global`
 
 After that, email `developer@realsee.com` to request the official `全景图生成VR` API capability. Include your account region, `UserID`, and `IdentityID`.
 
@@ -84,4 +82,4 @@ npm run poll:status -- --workspace ./workspace --task-code abc123
 ## Release policy
 
 - `main` is the integration branch.
-- Stable Gemini consumption should pin a GitHub Release tag such as `v0.1.0`.
+- Stable Gemini installations use a GitHub Release tag such as `v0.1.0`.

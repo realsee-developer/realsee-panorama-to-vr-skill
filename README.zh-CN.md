@@ -8,9 +8,9 @@
 
 这个仓库用于把一组本地全景图通过 Realsee OpenAPI 编排成可访问的 VR 空间，并以 **GitHub 可接入仓库** 的方式提供给外部使用。
 
-仓库对外的公开身份和 canonical skill id 统一使用 `realsee-panorama-to-vr-skill`。
+仓库对外的公开身份和 canonical skill id 为 `realsee-panorama-to-vr-skill`。
 
-正式产品能力名称统一为 `全景图生成VR`，官方英文名称统一为 `Panorama-to-VR`。代码、脚本、接口字段、宿主触发名继续保持英文，避免开发接口频繁漂移。
+正式产品能力名称为 `全景图生成VR`，官方英文名称为 `Panorama-to-VR`。代码、脚本、接口字段、宿主触发名使用英文。
 
 它不是独立 `realsee-cli` 产品，而是一个共享技能仓库，首版覆盖：
 
@@ -20,7 +20,7 @@
 
 核心能力只有一套：位于 `.agents/skills/realsee-panorama-to-vr-skill/` 的 canonical skill，以及其中内置的 Node.js 编排运行时。
 
-仓库工具链也统一收敛到 Node.js：
+仓库工具链使用 Node.js：
 
 - 运行时入口使用 Node.js
 - 维护脚本使用 Node.js
@@ -31,14 +31,14 @@
 - `main` 分支用于持续开发集成。
 - 稳定版本通过 Git tag 和 GitHub Release 发布，例如 `v0.1.0`。
 - 面向生产环境的接入请固定到某个 release tag，不要直接跟随变化中的 `main`。
-- 未来上架 `skills.sh` 时，可以把它当作发现入口；真正需要可复现安装时，仍建议以 GitHub Release/tag 为准。
+- 未来上架 `skills.sh` 时，该页面作为发现入口，GitHub Release/tag 作为可复现安装入口。
 
 ## 仓库结构
 
 - `.agents/skills/realsee-panorama-to-vr-skill/`
   canonical skill 源目录，Gemini CLI 可以直接通过 `.agents/skills` 发现它。
 - `.claude-plugin/realsee-panorama-to-vr-skill/`
-  Claude Code plugin 包装层，便于 `--plugin-dir` 加载和后续发布。
+  Claude Code plugin 包装层，支持 `--plugin-dir` 加载。
 - `examples/manifest-input/`
   公开可分发的室内全景图样例和对应 `manifest.json`。
 - `examples/SOURCES.md`
@@ -61,7 +61,7 @@
 
 - `REALSEE_REGION=cn`：前往 `my.realsee.cn` 注册，或使用统一链接 `https://h5.realsee.com/vrapplink`
 - `REALSEE_REGION=global`：前往 `my.realsee.ai` 注册，或使用统一链接 `https://h5.realsee.com/vrapplink`
-- 还没确定账号可用区：先使用统一链接注册，再确认账号应归属 `cn` 还是 `global`
+- 还没确定账号可用区：先使用统一链接注册，再确认账号归属 `cn` 或 `global`
 
 完成注册后，使用账号的【账号可用区 / region】【如视 ID / UserID】【组织账号 / IdentityID】发送邮件到 `developer@realsee.com`，申请开通“全景图生成VR”的接口能力。
 
@@ -147,7 +147,7 @@ npm run poll:status -- \
 - Release 流程: [docs/releases.md](./docs/releases.md)
 - GitHub 仓库配置: [docs/github-repository-setup.md](./docs/github-repository-setup.md)
 
-Codex、Claude Code、Gemini CLI 的 skill id / plugin namespace 统一使用 `realsee-panorama-to-vr-skill`。详细约定见 [docs/capability-naming.md](./docs/capability-naming.md)。
+Codex、Claude Code、Gemini CLI 的 skill id / plugin namespace 为 `realsee-panorama-to-vr-skill`。详细约定见 [docs/capability-naming.md](./docs/capability-naming.md)。
 
 ## 说明
 

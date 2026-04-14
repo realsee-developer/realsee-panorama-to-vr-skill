@@ -10,6 +10,33 @@ const uploaderPkg = require('@realsee/universal-uploader')
 const { Uploader } = uploaderPkg
 const tokenCache = new Map()
 
+function parseJsonSafely(text) {
+  try {
+    return JSON.parse(text)
+  } catch {
+    return null
+  }
+}
+
+function summarizeErrorPayload(payload) {
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
+    return ''
+  }
+
+  const masked = maskSensitive(payload)
+  const summary = {}
+
+  for (const key of ['code', 'business_code', 'status', 'message', 'error', 'request_id', 'trace_id']) {
+    if (masked[key] != null) {
+      summary[key] = masked[key]
+    }
+  }
+
+  return Object.keys(summary).length > 0
+    ? `: ${JSON.stringify(summary)}`
+    : ''
+}
+
 async function apiFetch(step, method, url, { headers = {}, body, bodyType } = {}) {
   const requestLog = { method, url, headers: { ...headers } }
   if (requestLog.headers.Authorization) {
@@ -23,6 +50,15 @@ async function apiFetch(step, method, url, { headers = {}, body, bodyType } = {}
 
   logDetail(step, 'request', requestLog)
   const response = await fetch(url, { method, headers, body })
+  if (!response.ok) {
+    const text = await response.text().catch(() => '')
+    const errorPayload = parseJsonSafely(text)
+    if (errorPayload) {
+      logDetail(step, 'error_response', errorPayload)
+    }
+    const snippet = summarizeErrorPayload(errorPayload)
+    throw new Error(`HTTP ${response.status} ${response.statusText} for ${method} ${url}${snippet}`)
+  }
   const json = await response.json()
   logDetail(step, 'response', maskSensitive(json))
   return json
@@ -78,21 +114,20 @@ export async function getUploadToken(runtimeConfig, workspaceDir) {
   return json.data
 }
 
-async function getAdaptor(region) {
+function resolveAdaptor(moduleName, exportName) {
+  const module = require(moduleName)
+  return module[exportName] ?? module.default ?? module
+}
+
+function getAdaptor(region) {
   if (region === 'cn') {
-    return async () => {
-      const module = await import('@realsee/universal-uploader/adaptors/cos-node')
-      return module.CosNodeAdaptor ?? module.default?.default ?? module.default
-    }
+    return resolveAdaptor('@realsee/universal-uploader/adaptors/cos-node', 'CosNodeAdaptor')
   }
-  return async () => {
-    const module = await import('@realsee/universal-uploader/adaptors/aws')
-    return module.AwsAdaptor ?? module.default?.default ?? module.default
-  }
+  return resolveAdaptor('@realsee/universal-uploader/adaptors/aws', 'AwsAdaptor')
 }
 
 export async function uploadZip(runtimeConfig, workspaceDir, uploadToken) {
-  const adaptor = await getAdaptor(runtimeConfig.region)
+  const adaptor = getAdaptor(runtimeConfig.region)
   const { zipPath } = getWorkspacePaths(workspaceDir)
   const uploadKey = `realsee-panorama-to-vr-skill-${Date.now()}.zip`
   const blob = await openAsBlob(zipPath, { type: 'application/zip' })

@@ -16,7 +16,7 @@
       "title": "Realsee APP_KEY",
       "type": "string",
       "description": "Realsee Open Platform APP_KEY",
-      "sensitive": false
+      "sensitive": true
     },
     "REALSEE_APP_SECRET": {
       "title": "Realsee APP_SECRET",

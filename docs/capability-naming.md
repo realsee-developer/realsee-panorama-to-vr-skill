@@ -1,13 +1,13 @@
 # Capability Naming
 
-This repository uses two naming layers on purpose.
+This repository has two naming layers.
 
-## Official capability name
+## User-facing capability name
 
 - Chinese user-facing product name: `全景图生成VR`
 - English user-facing product name: `Panorama-to-VR`
 
-Use this name in:
+These names appear in:
 
 - Chinese documentation
 - product-facing explanations
@@ -15,15 +15,9 @@ Use this name in:
 
 ## Developer-facing names
 
-Use English-only names in code, scripts, and interface declarations:
+English-only identifiers appear in code, scripts, and interface declarations:
 
 - Repository identity: `realsee-panorama-to-vr-skill`
 - Canonical skill id: `realsee-panorama-to-vr-skill`
 - Claude plugin namespace: `realsee-panorama-to-vr-skill`
 - Runtime wording: `panorama-to-vr`
-
-## Why the split exists
-
-- Product naming should match the formal capability name
-- Developer identifiers should stay stable and machine-friendly
-- Host integrations should not break when the product wording changes

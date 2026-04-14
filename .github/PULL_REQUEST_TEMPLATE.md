@@ -1,7 +1,7 @@
 ## Summary
 
 - What changed
-- Why it changed
+- Change summary
 
 ## Validation
 

@@ -70,7 +70,14 @@ export async function prepareInput({ imagesDir, manifestPath, workspaceDir, proj
 
   if (manifestPath) {
     log('INPUT', `Preparing manifest mode from ${manifestPath}`)
-    const manifest = JSON.parse(await readFile(resolve(manifestPath), 'utf-8'))
+    const resolvedManifestPath = resolve(manifestPath)
+    const manifestText = await readFile(resolvedManifestPath, 'utf-8')
+    let manifest
+    try {
+      manifest = JSON.parse(manifestText)
+    } catch (error) {
+      throw new Error(`Failed to parse manifest.json at ${resolvedManifestPath}: ${error.message}`)
+    }
     validateManifestShape(manifest)
 
     for (const item of manifest.scan_list) {
@@ -86,7 +93,7 @@ export async function prepareInput({ imagesDir, manifestPath, workspaceDir, proj
     await writeFile(workspaceManifestPath, `${JSON.stringify(preparedManifest, null, 2)}\n`, 'utf-8')
     await writeState(workspaceDir, {
       input_mode: 'manifest',
-      manifest_source: resolve(manifestPath),
+      manifest_source: resolvedManifestPath,
       images_source_dir: resolvedImagesDir,
       project_name: projectName,
       scan_count: manifest.scan_list.length,

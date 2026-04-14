@@ -5,7 +5,9 @@ import { mkdtemp, readFile, readdir, realpath, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { getAccessToken } from '../.agents/skills/realsee-panorama-to-vr-skill/scripts/lib/api.mjs'
 import { createUploadZip } from '../.agents/skills/realsee-panorama-to-vr-skill/scripts/lib/archive.mjs'
+import { assertValidArgs, parseArgs } from '../.agents/skills/realsee-panorama-to-vr-skill/scripts/lib/args.mjs'
 import { prepareInput } from '../.agents/skills/realsee-panorama-to-vr-skill/scripts/lib/input.mjs'
 
 const rootDir = resolve(dirname(fileURLToPath(import.meta.url)), '..')
@@ -123,10 +125,60 @@ async function runResumeFailureSmoke(tempRoot) {
   await assertFailureArtifacts(join(workspaceRoot, 'abc123'), 'abc123')
 }
 
+function runMissingPollValueValidationSmoke() {
+  assert.throws(
+    () => assertValidArgs(parseArgs(['--images-dir', exampleImages, '--poll-interval-ms'])),
+    /`--poll-interval-ms` requires a value\./,
+    'missing --poll-interval-ms value should be rejected',
+  )
+
+  assert.throws(
+    () => assertValidArgs(parseArgs(['--images-dir', exampleImages, '--poll-max-attempts'])),
+    /`--poll-max-attempts` requires a value\./,
+    'missing --poll-max-attempts value should be rejected',
+  )
+}
+
+async function runHttpErrorRedactionSmoke(tempRoot) {
+  const originalFetch = globalThis.fetch
+
+  globalThis.fetch = async () => new Response(JSON.stringify({
+    code: -1,
+    status: 'illegal app',
+    access_token: 'secret-access-token',
+    request_id: 'request-123',
+  }), {
+    status: 401,
+    statusText: 'Unauthorized',
+    headers: { 'Content-Type': 'application/json' },
+  })
+
+  try {
+    await assert.rejects(
+      () => getAccessToken({
+        baseUrl: 'https://example.invalid',
+        appKey: 'dummy-app-key',
+        appSecret: 'dummy-app-secret',
+      }, join(tempRoot, 'redaction-smoke')),
+      (error) => {
+        assert.match(error.message, /HTTP 401 Unauthorized/)
+        assert.match(error.message, /request-123/)
+        assert.doesNotMatch(error.message, /secret-access-token/)
+        return true
+      },
+      'HTTP error messages must not leak sensitive fields',
+    )
+  } finally {
+    globalThis.fetch = originalFetch
+  }
+}
+
 const tempRoot = await mkdtemp(join(tmpdir(), 'realsee-panorama-to-vr-skill-'))
 
 try {
+  runMissingPollValueValidationSmoke()
   await runPublicExampleSmoke(tempRoot)
+  await runHttpErrorRedactionSmoke(tempRoot)
   await runDefaultWorkspaceFailureSmoke(tempRoot)
   await runCreatedRunFailureSmoke(tempRoot)
   await runResumeFailureSmoke(tempRoot)

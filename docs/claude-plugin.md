@@ -2,7 +2,7 @@
 
 ## Development usage
 
-For a stable production install, pin a Git release tag first:
+Stable production install:
 
 ```bash
 VERSION=v0.1.0
@@ -13,9 +13,7 @@ npm run sync:claude-plugin
 claude --plugin-dir ./.claude-plugin/realsee-panorama-to-vr-skill
 ```
 
-For development, you can also clone the default branch:
-
-Clone the repository, install dependencies, sync the bundled plugin skill, then start Claude Code with the local plugin directory:
+Default-branch development install:
 
 ```bash
 git clone https://github.com/realsee-developer/realsee-panorama-to-vr-skill.git
@@ -45,7 +43,7 @@ If you do not have Realsee credentials yet:
 
 - `REALSEE_REGION=cn`: register at `my.realsee.cn` or use `https://h5.realsee.com/vrapplink`
 - `REALSEE_REGION=global`: register at `my.realsee.ai` or use `https://h5.realsee.com/vrapplink`
-- Unknown region: use the unified link first, then confirm whether the account should be `cn` or `global`
+- Unknown region: use the unified link first, then confirm whether the account is `cn` or `global`
 
 After that, email `developer@realsee.com` to request the official `全景图生成VR` API capability. Include your account region, `UserID`, and `IdentityID`.
 
@@ -76,4 +74,4 @@ npm run poll:status -- --workspace ./workspace --task-code abc123
 ## Release policy
 
 - `main` is the integration branch.
-- Stable Claude plugin consumption should pin a GitHub Release tag such as `v0.1.0`.
+- Stable Claude plugin installations use a GitHub Release tag such as `v0.1.0`.
