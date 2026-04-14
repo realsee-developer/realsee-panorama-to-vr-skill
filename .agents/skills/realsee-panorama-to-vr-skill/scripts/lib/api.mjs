@@ -1,10 +1,12 @@
 import { openAsBlob } from 'node:fs'
+import { createRequire } from 'node:module'
 import { rename } from 'node:fs/promises'
 import { join } from 'node:path'
-import uploaderPkg from '@realsee/universal-uploader'
 import { log, logDetail, maskSensitive } from './logger.mjs'
 import { getWorkspacePaths, readState, writeState } from './state.mjs'
 
+const require = createRequire(import.meta.url)
+const uploaderPkg = require('@realsee/universal-uploader')
 const { Uploader } = uploaderPkg
 const tokenCache = new Map()
 

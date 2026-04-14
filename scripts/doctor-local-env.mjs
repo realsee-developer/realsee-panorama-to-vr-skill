@@ -86,6 +86,13 @@ if (await pathExists(join(pluginDir, '.claude-plugin/plugin.json'))) {
 checkCommand('node')
 checkCommand('npm')
 
+const nodeMajor = Number(process.versions.node.split('.')[0] ?? '0')
+if (nodeMajor < 22) {
+  markFailure(`node ${process.version} is too old; require Node.js 22+`)
+} else {
+  markOk(`Node.js major version requirement satisfied (${process.version})`)
+}
+
 const claudeMatches = findExecutablesInPath('claude').filter((candidate) => {
   try {
     return runCommand(candidate, ['--version'], { check: false }).status === 0

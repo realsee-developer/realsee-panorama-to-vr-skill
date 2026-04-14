@@ -50,7 +50,7 @@
 
 ## 前置要求
 
-- Node.js 20+
+- Node.js 22+
 - npm 10+
 - 如视开放平台凭证：
   - `REALSEE_APP_KEY`

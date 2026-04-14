@@ -50,7 +50,7 @@ The repository toolchain is intentionally converged on Node.js:
 
 ## Prerequisites
 
-- Node.js 20+
+- Node.js 22+
 - npm 10+
 - Realsee Open Platform credentials:
   - `REALSEE_APP_KEY`
