@@ -3,7 +3,7 @@ import { getRepoRoot, runCommand } from './lib/node-cli.mjs'
 
 const rootDir = getRepoRoot(import.meta.url)
 
-runCommand(process.execPath, ['./scripts/validate-skill.mjs', './.agents/skills/realsee-pano-to-vr'], {
+runCommand(process.execPath, ['./scripts/validate-skill.mjs', './.agents/skills/realsee-panorama-to-vr-skill'], {
   cwd: rootDir,
   stdio: 'inherit',
 })

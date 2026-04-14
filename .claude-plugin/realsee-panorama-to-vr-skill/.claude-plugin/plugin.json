@@ -1,0 +1,34 @@
+{
+  "name": "realsee-panorama-to-vr-skill",
+  "version": "0.1.0",
+  "description": "Bundle the Panorama-to-VR skill for the official 全景图生成VR capability.",
+  "skills": "./skills",
+  "repository": "https://github.com/realsee-developer/realsee-panorama-to-vr-skill",
+  "homepage": "https://github.com/realsee-developer/realsee-panorama-to-vr-skill",
+  "keywords": [
+    "realsee",
+    "vr",
+    "panorama",
+    "skill"
+  ],
+  "userConfig": {
+    "REALSEE_APP_KEY": {
+      "title": "Realsee APP_KEY",
+      "type": "string",
+      "description": "Realsee Open Platform APP_KEY",
+      "sensitive": false
+    },
+    "REALSEE_APP_SECRET": {
+      "title": "Realsee APP_SECRET",
+      "type": "string",
+      "description": "Realsee Open Platform APP_SECRET",
+      "sensitive": true
+    },
+    "REALSEE_REGION": {
+      "title": "Realsee region",
+      "type": "string",
+      "description": "Region to use: global or cn",
+      "sensitive": false
+    }
+  }
+}

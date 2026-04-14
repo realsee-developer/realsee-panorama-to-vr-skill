@@ -2,7 +2,7 @@
 
 这个仓库用于把一组本地全景图通过 Realsee OpenAPI 编排成可访问的 VR 空间，并以 **GitHub 可接入仓库** 的方式提供给外部使用。
 
-仓库对外的公开身份建议使用 `realsee-vr-skillkit`。同时，为了保持宿主侧触发稳定，canonical skill 名称继续保留为 `realsee-pano-to-vr`。
+仓库对外的公开身份和 canonical skill id 统一使用 `realsee-panorama-to-vr-skill`。
 
 正式产品能力名称统一为 `全景图生成VR`，官方英文名称统一为 `Panorama-to-VR`。代码、脚本、接口字段、宿主触发名继续保持英文，避免开发接口频繁漂移。
 
@@ -12,7 +12,7 @@
 - Claude Code
 - Gemini CLI
 
-核心能力只有一套：位于 `.agents/skills/realsee-pano-to-vr/` 的 canonical skill，以及其中内置的 Node.js 编排运行时。
+核心能力只有一套：位于 `.agents/skills/realsee-panorama-to-vr-skill/` 的 canonical skill，以及其中内置的 Node.js 编排运行时。
 
 仓库工具链也统一收敛到 Node.js：
 
@@ -22,9 +22,9 @@
 
 ## 仓库结构
 
-- `.agents/skills/realsee-pano-to-vr/`
+- `.agents/skills/realsee-panorama-to-vr-skill/`
   canonical skill 源目录，Gemini CLI 可以直接通过 `.agents/skills` 发现它。
-- `.claude-plugin/realsee-vr-skillkit/`
+- `.claude-plugin/realsee-panorama-to-vr-skill/`
   Claude Code plugin 包装层，便于 `--plugin-dir` 加载和后续发布。
 - `examples/manifest-input/`
   公开可分发的室内全景图样例和对应 `manifest.json`。
@@ -58,7 +58,7 @@
 npm install
 ```
 
-canonical skill 目录里也带了独立的 [`package.json`](./.agents/skills/realsee-pano-to-vr/package.json)，如果某个宿主是直接消费 skill 目录本身，也可以在该目录单独安装依赖。
+canonical skill 目录里也带了独立的 [`package.json`](./.agents/skills/realsee-panorama-to-vr-skill/package.json)，如果某个宿主是直接消费 skill 目录本身，也可以在该目录单独安装依赖。
 
 如果你希望通过本地 `.env` 加载凭证：
 
@@ -123,7 +123,7 @@ npm run poll:status -- \
 - Claude Code: [docs/claude-plugin.md](./docs/claude-plugin.md)
 - Gemini CLI: [docs/gemini-cli.md](./docs/gemini-cli.md)
 
-其中 Codex 和 Gemini CLI 的 canonical skill 名称保持为 `realsee-pano-to-vr`，Claude Code 则通过 `realsee-vr-skillkit` 这个 plugin namespace 暴露同一套能力。详细约定见 [docs/capability-naming.md](./docs/capability-naming.md)。
+Codex、Claude Code、Gemini CLI 的 skill id / plugin namespace 统一使用 `realsee-panorama-to-vr-skill`。详细约定见 [docs/capability-naming.md](./docs/capability-naming.md)。
 
 ## 说明
 

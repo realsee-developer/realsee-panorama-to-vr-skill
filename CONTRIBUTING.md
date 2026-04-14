@@ -6,7 +6,7 @@ This repository is a GitHub-distributed skillkit for the official `全景图生�
 
 Keep these boundaries intact:
 
-- The canonical skill source is `.agents/skills/realsee-pano-to-vr/`
+- The canonical skill source is `.agents/skills/realsee-panorama-to-vr-skill/`
 - The Claude plugin copy is generated from the canonical skill
 - Public example data only; do not commit customer panoramas, customer manifests, or live credentials
 
@@ -34,7 +34,7 @@ This validates:
 
 ## Source of truth rules
 
-- Edit the canonical skill under `.agents/skills/realsee-pano-to-vr/`
+- Edit the canonical skill under `.agents/skills/realsee-panorama-to-vr-skill/`
 - Do not hand-edit the Claude plugin skill copy unless you are also changing the sync process itself
 - After canonical skill changes, run `npm run sync:claude-plugin`
 

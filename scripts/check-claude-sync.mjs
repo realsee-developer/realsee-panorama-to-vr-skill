@@ -5,8 +5,8 @@ import { join, relative } from 'node:path'
 import { getRepoRoot, runCommand } from './lib/node-cli.mjs'
 
 const rootDir = getRepoRoot(import.meta.url)
-const canonicalSkillDir = join(rootDir, '.agents/skills/realsee-pano-to-vr')
-const pluginSkillDir = join(rootDir, '.claude-plugin/realsee-vr-skillkit/skills/realsee-pano-to-vr')
+const canonicalSkillDir = join(rootDir, '.agents/skills/realsee-panorama-to-vr-skill')
+const pluginSkillDir = join(rootDir, '.claude-plugin/realsee-panorama-to-vr-skill/skills/realsee-panorama-to-vr-skill')
 
 async function listFiles(dir) {
   const entries = await readdir(dir, { withFileTypes: true })

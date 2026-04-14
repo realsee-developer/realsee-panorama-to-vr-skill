@@ -17,9 +17,9 @@ Use this name in:
 
 Use English-only names in code, scripts, and interface declarations:
 
-- Repository identity: `realsee-vr-skillkit`
-- Canonical skill id: `realsee-pano-to-vr`
-- Claude plugin namespace: `realsee-vr-skillkit`
+- Repository identity: `realsee-panorama-to-vr-skill`
+- Canonical skill id: `realsee-panorama-to-vr-skill`
+- Claude plugin namespace: `realsee-panorama-to-vr-skill`
 - Runtime wording: `panorama-to-vr`
 
 ## Why the split exists

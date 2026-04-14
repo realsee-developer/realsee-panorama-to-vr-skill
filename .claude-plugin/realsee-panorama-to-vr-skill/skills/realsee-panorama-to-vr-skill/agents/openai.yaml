@@ -1,0 +1,7 @@
+interface:
+  display_name: "Panorama-to-VR"
+  short_description: "Turn local panoramas into Realsee VR spaces."
+  default_prompt: "Use $realsee-panorama-to-vr-skill to run the Panorama-to-VR workflow on a local panorama set."
+
+policy:
+  allow_implicit_invocation: false

@@ -16,13 +16,13 @@ async function assertExists(path, label) {
   }
 }
 
-const skillDir = resolve(process.argv[2] ?? './.agents/skills/realsee-pano-to-vr')
+const skillDir = resolve(process.argv[2] ?? './.agents/skills/realsee-panorama-to-vr-skill')
 const skillPath = join(skillDir, 'SKILL.md')
 await assertExists(skillPath, 'SKILL.md')
 await assertExists(join(skillDir, 'agents/openai.yaml'), 'agents/openai.yaml')
 await assertExists(join(skillDir, 'package.json'), 'package.json')
 await assertExists(join(skillDir, 'references'), 'references directory')
-await assertExists(join(skillDir, 'scripts/run-pano-to-vr.mjs'), 'scripts/run-pano-to-vr.mjs')
+await assertExists(join(skillDir, 'scripts/run-panorama-to-vr.mjs'), 'scripts/run-panorama-to-vr.mjs')
 
 const raw = await readFile(skillPath, 'utf-8')
 const frontmatterMatch = raw.match(/^---\n([\s\S]*?)\n---\n/)

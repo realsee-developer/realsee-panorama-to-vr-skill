@@ -43,7 +43,7 @@ const taskDir = join(workspaceRoot, taskCode)
 const pidFile = join(taskDir, 'background-poll.pid')
 const stdoutLog = join(taskDir, 'background-poll.stdout.log')
 const stderrLog = join(taskDir, 'background-poll.stderr.log')
-const runtimeEntry = join(rootDir, '.agents/skills/realsee-pano-to-vr/scripts/run-pano-to-vr.mjs')
+const runtimeEntry = join(rootDir, '.agents/skills/realsee-panorama-to-vr-skill/scripts/run-panorama-to-vr.mjs')
 
 await mkdir(taskDir, { recursive: true })
 

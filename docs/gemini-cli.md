@@ -5,15 +5,15 @@
 Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/realsee-developer/realsee-vr-skillkit.git
-cd realsee-vr-skillkit
+git clone https://github.com/realsee-developer/realsee-panorama-to-vr-skill.git
+cd realsee-panorama-to-vr-skill
 npm install
 ```
 
 If your Gemini setup consumes the skill directory more directly, you can also install dependencies in the skill root itself:
 
 ```bash
-npm install --prefix ./.agents/skills/realsee-pano-to-vr
+npm install --prefix ./.agents/skills/realsee-panorama-to-vr-skill
 ```
 
 Gemini CLI can use this repository in two different ways. Pick exactly one:
@@ -28,13 +28,13 @@ Do not keep both the workspace-discovered skill and a same-name global skill lin
 If you want a global skill, link the canonical skill from the repository root:
 
 ```bash
-gemini skills link ./.agents/skills/realsee-pano-to-vr
+gemini skills link ./.agents/skills/realsee-panorama-to-vr-skill
 ```
 
 You can also install the repository directly from Git:
 
 ```bash
-gemini skills install https://github.com/realsee-developer/realsee-vr-skillkit.git
+gemini skills install https://github.com/realsee-developer/realsee-panorama-to-vr-skill.git
 ```
 
 ## Credentials
@@ -57,9 +57,9 @@ After that, email `developer@realsee.com` to request the official `全景图生�
 
 ## Typical prompts
 
-- `Use realsee-pano-to-vr on ./examples/manifest-input.`
-- `Use realsee-pano-to-vr on /data/panos and generate the manifest automatically.`
-- `Use realsee-pano-to-vr to resume polling task_code abc123 in ./workspace.`
+- `Use realsee-panorama-to-vr-skill on ./examples/manifest-input.`
+- `Use realsee-panorama-to-vr-skill on /data/panos and generate the manifest automatically.`
+- `Use realsee-panorama-to-vr-skill to resume polling task_code abc123 in ./workspace.`
 
 For shell-level background polling after a task is already submitted:
 

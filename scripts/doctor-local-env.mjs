@@ -5,8 +5,8 @@ import { findExecutablesInPath, getRepoRoot, pathExists, runCommand } from './li
 
 const rootDir = getRepoRoot(import.meta.url)
 const envFile = join(rootDir, '.env')
-const skillDir = join(rootDir, '.agents/skills/realsee-pano-to-vr')
-const pluginDir = join(rootDir, '.claude-plugin/realsee-vr-skillkit')
+const skillDir = join(rootDir, '.agents/skills/realsee-panorama-to-vr-skill')
+const pluginDir = join(rootDir, '.claude-plugin/realsee-panorama-to-vr-skill')
 
 let failures = 0
 let warnings = 0
@@ -98,7 +98,7 @@ if (claudeMatches.length > 1) {
   markWarning('multiple Claude Code binaries detected in PATH; keep either native or Homebrew, not both')
 }
 
-if (await pathExists(join(process.env.HOME ?? '.', '.gemini/skills/realsee-pano-to-vr')) && await pathExists(join(skillDir, 'SKILL.md'))) {
+if (await pathExists(join(process.env.HOME ?? '.', '.gemini/skills/realsee-panorama-to-vr-skill')) && await pathExists(join(skillDir, 'SKILL.md'))) {
   markWarning('Gemini global skill and workspace skill both exist; use only one discovery path')
 }
 
@@ -136,7 +136,7 @@ if (geminiMatches.length > 0) {
   markWarning('gemini: not installed')
 }
 
-const skillValidation = runCommand(process.execPath, ['./scripts/validate-skill.mjs', './.agents/skills/realsee-pano-to-vr'], {
+const skillValidation = runCommand(process.execPath, ['./scripts/validate-skill.mjs', './.agents/skills/realsee-panorama-to-vr-skill'], {
   cwd: rootDir,
   check: false,
 })

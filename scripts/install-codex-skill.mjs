@@ -4,12 +4,12 @@ import { join, resolve } from 'node:path'
 import { getRepoRoot, logStep } from './lib/node-cli.mjs'
 
 const rootDir = getRepoRoot(import.meta.url)
-const sourceDir = resolve(rootDir, '.agents/skills/realsee-pano-to-vr')
+const sourceDir = resolve(rootDir, '.agents/skills/realsee-panorama-to-vr-skill')
 const codexHome = process.env.CODEX_HOME
   ? resolve(process.env.CODEX_HOME)
   : resolve(process.env.HOME ?? '.', '.codex')
 const targetRoot = join(codexHome, 'skills')
-const targetDir = join(targetRoot, 'realsee-pano-to-vr')
+const targetDir = join(targetRoot, 'realsee-panorama-to-vr-skill')
 
 await mkdir(targetRoot, { recursive: true })
 await rm(targetDir, { recursive: true, force: true })

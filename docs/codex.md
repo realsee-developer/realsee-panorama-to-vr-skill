@@ -5,8 +5,8 @@
 Clone this repository, install dependencies, then link the canonical skill into your Codex skills directory:
 
 ```bash
-git clone https://github.com/realsee-developer/realsee-vr-skillkit.git
-cd realsee-vr-skillkit
+git clone https://github.com/realsee-developer/realsee-panorama-to-vr-skill.git
+cd realsee-panorama-to-vr-skill
 npm install
 npm run install:codex-skill
 ```
@@ -14,13 +14,13 @@ npm run install:codex-skill
 If you prefer to install dependencies inside the skill itself instead of at the repository root:
 
 ```bash
-npm install --prefix ./.agents/skills/realsee-pano-to-vr
+npm install --prefix ./.agents/skills/realsee-panorama-to-vr-skill
 ```
 
 The script links:
 
-- source: `.agents/skills/realsee-pano-to-vr`
-- target: `${CODEX_HOME:-$HOME/.codex}/skills/realsee-pano-to-vr`
+- source: `.agents/skills/realsee-panorama-to-vr-skill`
+- target: `${CODEX_HOME:-$HOME/.codex}/skills/realsee-panorama-to-vr-skill`
 
 ## Credentials
 
@@ -42,14 +42,14 @@ After that, email `developer@realsee.com` to request the official `全景图生�
 
 ## Typical prompts
 
-- `Use $realsee-pano-to-vr to turn ./examples/manifest-input into a VR space.`
-- `Use $realsee-pano-to-vr to process /data/panos with automatic manifest generation.`
-- `Use $realsee-pano-to-vr to resume polling task_code abc123 in ./workspace.`
+- `Use $realsee-panorama-to-vr-skill to turn ./examples/manifest-input into a VR space.`
+- `Use $realsee-panorama-to-vr-skill to process /data/panos with automatic manifest generation.`
+- `Use $realsee-panorama-to-vr-skill to resume polling task_code abc123 in ./workspace.`
 
 ## Direct runtime examples
 
 ```bash
-node ./.agents/skills/realsee-pano-to-vr/scripts/run-pano-to-vr.mjs \
+node ./.agents/skills/realsee-panorama-to-vr-skill/scripts/run-panorama-to-vr.mjs \
   --manifest ./examples/manifest-input/manifest.json \
   --images-dir ./examples/manifest-input/images \
   --workspace ./workspace \

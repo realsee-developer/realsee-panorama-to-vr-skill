@@ -5,11 +5,11 @@ import { mkdtemp, readFile, readdir, realpath, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { createUploadZip } from '../.agents/skills/realsee-pano-to-vr/scripts/lib/archive.mjs'
-import { prepareInput } from '../.agents/skills/realsee-pano-to-vr/scripts/lib/input.mjs'
+import { createUploadZip } from '../.agents/skills/realsee-panorama-to-vr-skill/scripts/lib/archive.mjs'
+import { prepareInput } from '../.agents/skills/realsee-panorama-to-vr-skill/scripts/lib/input.mjs'
 
 const rootDir = resolve(dirname(fileURLToPath(import.meta.url)), '..')
-const runtimeEntry = resolve(rootDir, '.agents/skills/realsee-pano-to-vr/scripts/run-pano-to-vr.mjs')
+const runtimeEntry = resolve(rootDir, '.agents/skills/realsee-panorama-to-vr-skill/scripts/run-panorama-to-vr.mjs')
 const exampleManifest = resolve(rootDir, 'examples/manifest-input/manifest.json')
 const exampleImages = resolve(rootDir, 'examples/manifest-input/images')
 
@@ -123,7 +123,7 @@ async function runResumeFailureSmoke(tempRoot) {
   await assertFailureArtifacts(join(workspaceRoot, 'abc123'), 'abc123')
 }
 
-const tempRoot = await mkdtemp(join(tmpdir(), 'realsee-vr-skillkit-'))
+const tempRoot = await mkdtemp(join(tmpdir(), 'realsee-panorama-to-vr-skill-'))
 
 try {
   await runPublicExampleSmoke(tempRoot)

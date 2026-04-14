@@ -5,11 +5,11 @@
 Clone the repository, install dependencies, sync the bundled plugin skill, then start Claude Code with the local plugin directory:
 
 ```bash
-git clone https://github.com/realsee-developer/realsee-vr-skillkit.git
-cd realsee-vr-skillkit
+git clone https://github.com/realsee-developer/realsee-panorama-to-vr-skill.git
+cd realsee-panorama-to-vr-skill
 npm install
 npm run sync:claude-plugin
-claude --plugin-dir ./.claude-plugin/realsee-vr-skillkit
+claude --plugin-dir ./.claude-plugin/realsee-panorama-to-vr-skill
 ```
 
 This uses Claude Code's documented `--plugin-dir` development flow.
@@ -18,8 +18,8 @@ Keep exactly one active `claude` installation on your machine. Do not keep both 
 
 ## Plugin behavior
 
-- Plugin root: `.claude-plugin/realsee-vr-skillkit`
-- Namespaced skill: `/realsee-vr-skillkit:realsee-pano-to-vr`
+- Plugin root: `.claude-plugin/realsee-panorama-to-vr-skill`
+- Namespaced skill: `/realsee-panorama-to-vr-skill:realsee-panorama-to-vr-skill`
 - Credentials come from `userConfig`
 - Plugin subprocesses also receive:
   - `CLAUDE_PLUGIN_OPTION_REALSEE_APP_KEY`
@@ -44,14 +44,14 @@ If your local `claude plugin validate` build does not yet recognize `userConfig`
 export REALSEE_APP_KEY=...
 export REALSEE_APP_SECRET=...
 export REALSEE_REGION=global
-claude --plugin-dir ./.claude-plugin/realsee-vr-skillkit
+claude --plugin-dir ./.claude-plugin/realsee-panorama-to-vr-skill
 ```
 
 ## Typical prompts
 
-- `Use /realsee-vr-skillkit:realsee-pano-to-vr on ./examples/manifest-input and show the task_code and vr_url.`
-- `Use /realsee-vr-skillkit:realsee-pano-to-vr on /data/panos and auto-generate the manifest.`
-- `Use /realsee-vr-skillkit:realsee-pano-to-vr to resume task_code abc123 in ./workspace.`
+- `Use /realsee-panorama-to-vr-skill:realsee-panorama-to-vr-skill on ./examples/manifest-input and show the task_code and vr_url.`
+- `Use /realsee-panorama-to-vr-skill:realsee-panorama-to-vr-skill on /data/panos and auto-generate the manifest.`
+- `Use /realsee-panorama-to-vr-skill:realsee-panorama-to-vr-skill to resume task_code abc123 in ./workspace.`
 
 For manual shell recovery outside Claude, the repository also includes:
 

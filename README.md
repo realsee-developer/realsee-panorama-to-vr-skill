@@ -4,7 +4,7 @@ Official capability names: `全景图生成VR` / `Panorama-to-VR`
 
 Turn a local panorama set into a Realsee VR space through a shared Agent Skill runtime.
 
-This repository is designed for **GitHub distribution** under a company organization, not as a standalone `realsee-cli` product. The public repository identity is `realsee-vr-skillkit`, while the canonical skill invocation name remains `realsee-pano-to-vr`.
+This repository is designed for **GitHub distribution** under a company organization, not as a standalone `realsee-cli` product. The public repository identity and canonical skill id are both `realsee-panorama-to-vr-skill`.
 
 It provides one canonical skill plus host adapters for:
 
@@ -22,9 +22,9 @@ The repository toolchain is intentionally converged on Node.js:
 
 ## Repository layout
 
-- `.agents/skills/realsee-pano-to-vr/`
+- `.agents/skills/realsee-panorama-to-vr-skill/`
   The canonical skill source. Gemini CLI can discover it directly through the `.agents/skills` alias.
-- `.claude-plugin/realsee-vr-skillkit/`
+- `.claude-plugin/realsee-panorama-to-vr-skill/`
   Claude Code plugin wrapper that bundles the same skill for `--plugin-dir` usage.
 - `examples/manifest-input/`
   Public indoor panoramas plus a sample `manifest.json`.
@@ -58,7 +58,7 @@ Install dependencies from the repository root:
 npm install
 ```
 
-The canonical skill also includes its own [`package.json`](./.agents/skills/realsee-pano-to-vr/package.json) so hosts that consume the skill directory directly can install dependencies there if needed.
+The canonical skill also includes its own [`package.json`](./.agents/skills/realsee-panorama-to-vr-skill/package.json) so hosts that consume the skill directory directly can install dependencies there if needed.
 
 Copy the environment template if you want local `.env` loading:
 
@@ -123,7 +123,7 @@ The runtime writes one isolated working directory per task and always produces:
 - Claude Code: [docs/claude-plugin.md](./docs/claude-plugin.md)
 - Gemini CLI: [docs/gemini-cli.md](./docs/gemini-cli.md)
 
-The canonical skill name stays `realsee-pano-to-vr` across Codex and Gemini. Claude Code uses the plugin namespace `realsee-vr-skillkit` with the same underlying skill. See [docs/capability-naming.md](./docs/capability-naming.md) for the naming split.
+The canonical skill id stays `realsee-panorama-to-vr-skill` across Codex, Claude Code, and Gemini CLI. See [docs/capability-naming.md](./docs/capability-naming.md) for the naming split.
 
 ## Notes
 
