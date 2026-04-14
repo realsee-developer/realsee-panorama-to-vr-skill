@@ -1,5 +1,11 @@
 # Panorama-to-VR SkillKit
 
+[![CI](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/actions/workflows/codeql.yml/badge.svg)](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/actions/workflows/codeql.yml)
+[![Latest Release](https://img.shields.io/github/v/release/realsee-developer/realsee-panorama-to-vr-skill?display_name=tag)](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/releases)
+[![License](https://img.shields.io/github/license/realsee-developer/realsee-panorama-to-vr-skill)](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/blob/main/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/realsee-developer/realsee-panorama-to-vr-skill?style=social)](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/stargazers)
+
 Official capability names: `全景图生成VR` / `Panorama-to-VR`
 
 Turn a local panorama set into a Realsee VR space through a shared Agent Skill runtime.
@@ -19,6 +25,13 @@ The repository toolchain is intentionally converged on Node.js:
 - runtime entrypoints are Node.js
 - maintenance scripts are Node.js
 - CI validation runs on Node.js only
+
+## Release policy
+
+- `main` is the integration branch for ongoing development.
+- Stable distribution happens through Git tags and GitHub Releases such as `v0.1.0`.
+- Production consumers should pin a release tag instead of installing from moving `main`.
+- When this repository is listed on `skills.sh`, treat that page as a discovery entry; use GitHub Releases for reproducible pinned installs.
 
 ## Repository layout
 
@@ -55,6 +68,15 @@ After registration, email `developer@realsee.com` to request access to the offic
 Install dependencies from the repository root:
 
 ```bash
+npm install
+```
+
+For a stable production install, clone a release tag instead of `main`:
+
+```bash
+VERSION=v0.1.0
+git clone --branch "$VERSION" --depth 1 https://github.com/realsee-developer/realsee-panorama-to-vr-skill.git
+cd realsee-panorama-to-vr-skill
 npm install
 ```
 
@@ -122,6 +144,8 @@ The runtime writes one isolated working directory per task and always produces:
 - Codex: [docs/codex.md](./docs/codex.md)
 - Claude Code: [docs/claude-plugin.md](./docs/claude-plugin.md)
 - Gemini CLI: [docs/gemini-cli.md](./docs/gemini-cli.md)
+- Release flow: [docs/releases.md](./docs/releases.md)
+- GitHub repository setup: [docs/github-repository-setup.md](./docs/github-repository-setup.md)
 
 The canonical skill id stays `realsee-panorama-to-vr-skill` across Codex, Claude Code, and Gemini CLI. See [docs/capability-naming.md](./docs/capability-naming.md) for the naming split.
 
@@ -132,3 +156,7 @@ The canonical skill id stays `realsee-panorama-to-vr-skill` across Codex, Claude
 - Claude users should prefer the bundled plugin wrapper.
 - Gemini CLI users can consume the canonical skill directly from `.agents/skills`.
 - For Gemini CLI, use either workspace discovery or a global `skills link/install`, but not both at the same time.
+
+## Repository trends
+
+[![Star History Chart](https://api.star-history.com/svg?repos=realsee-developer/realsee-panorama-to-vr-skill&type=Date)](https://www.star-history.com/#realsee-developer/realsee-panorama-to-vr-skill&Date)

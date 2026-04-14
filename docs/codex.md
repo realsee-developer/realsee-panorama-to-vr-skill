@@ -2,6 +2,18 @@
 
 ## Install
 
+For a stable production install, pin a Git release tag:
+
+```bash
+VERSION=v0.1.0
+git clone --branch "$VERSION" --depth 1 https://github.com/realsee-developer/realsee-panorama-to-vr-skill.git
+cd realsee-panorama-to-vr-skill
+npm install
+npm run install:codex-skill
+```
+
+For development, you can also clone the default branch:
+
 Clone this repository, install dependencies, then link the canonical skill into your Codex skills directory:
 
 ```bash
@@ -63,3 +75,8 @@ npm run poll:bg -- \
   --workspace ./workspace \
   --task-code your_task_code
 ```
+
+## Release policy
+
+- `main` is the integration branch.
+- Stable Codex consumption should pin a GitHub Release tag such as `v0.1.0`.

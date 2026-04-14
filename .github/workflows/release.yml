@@ -1,16 +1,15 @@
-name: CI
+name: Release
 
 on:
   push:
-    branches:
-      - main
     tags:
       - 'v*'
-  pull_request:
 
 jobs:
-  validate:
+  release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout
@@ -27,3 +26,8 @@ jobs:
 
       - name: Run repository validation
         run: npm run ci
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "${GITHUB_REF_NAME}" --verify-tag --generate-notes --latest

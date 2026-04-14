@@ -2,6 +2,17 @@
 
 ## Local clone + link
 
+For a stable production install, pin a Git release tag first:
+
+```bash
+VERSION=v0.1.0
+git clone --branch "$VERSION" --depth 1 https://github.com/realsee-developer/realsee-panorama-to-vr-skill.git
+cd realsee-panorama-to-vr-skill
+npm install
+```
+
+For development, you can also clone the default branch and install dependencies:
+
 Clone the repository and install dependencies:
 
 ```bash
@@ -37,6 +48,8 @@ You can also install the repository directly from Git:
 gemini skills install https://github.com/realsee-developer/realsee-panorama-to-vr-skill.git
 ```
 
+For reproducible production setups, prefer a pinned tag checkout plus `gemini skills link`, instead of following the moving default branch.
+
 ## Credentials
 
 Gemini CLI users should export:
@@ -67,3 +80,8 @@ For shell-level background polling after a task is already submitted:
 npm run poll:bg -- --workspace ./workspace --task-code abc123
 npm run poll:status -- --workspace ./workspace --task-code abc123
 ```
+
+## Release policy
+
+- `main` is the integration branch.
+- Stable Gemini consumption should pin a GitHub Release tag such as `v0.1.0`.

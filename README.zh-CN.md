@@ -1,5 +1,11 @@
 # 全景图生成VR SkillKit
 
+[![CI](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/actions/workflows/codeql.yml/badge.svg)](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/actions/workflows/codeql.yml)
+[![Latest Release](https://img.shields.io/github/v/release/realsee-developer/realsee-panorama-to-vr-skill?display_name=tag)](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/releases)
+[![License](https://img.shields.io/github/license/realsee-developer/realsee-panorama-to-vr-skill)](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/blob/main/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/realsee-developer/realsee-panorama-to-vr-skill?style=social)](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/stargazers)
+
 这个仓库用于把一组本地全景图通过 Realsee OpenAPI 编排成可访问的 VR 空间，并以 **GitHub 可接入仓库** 的方式提供给外部使用。
 
 仓库对外的公开身份和 canonical skill id 统一使用 `realsee-panorama-to-vr-skill`。
@@ -19,6 +25,13 @@
 - 运行时入口使用 Node.js
 - 维护脚本使用 Node.js
 - CI 校验使用 Node.js
+
+## 发布策略
+
+- `main` 分支用于持续开发集成。
+- 稳定版本通过 Git tag 和 GitHub Release 发布，例如 `v0.1.0`。
+- 面向生产环境的接入请固定到某个 release tag，不要直接跟随变化中的 `main`。
+- 未来上架 `skills.sh` 时，可以把它当作发现入口；真正需要可复现安装时，仍建议以 GitHub Release/tag 为准。
 
 ## 仓库结构
 
@@ -55,6 +68,15 @@
 安装依赖：
 
 ```bash
+npm install
+```
+
+如果你要按稳定版本接入，优先固定某个 release tag：
+
+```bash
+VERSION=v0.1.0
+git clone --branch "$VERSION" --depth 1 https://github.com/realsee-developer/realsee-panorama-to-vr-skill.git
+cd realsee-panorama-to-vr-skill
 npm install
 ```
 
@@ -122,6 +144,8 @@ npm run poll:status -- \
 - Codex: [docs/codex.md](./docs/codex.md)
 - Claude Code: [docs/claude-plugin.md](./docs/claude-plugin.md)
 - Gemini CLI: [docs/gemini-cli.md](./docs/gemini-cli.md)
+- Release 流程: [docs/releases.md](./docs/releases.md)
+- GitHub 仓库配置: [docs/github-repository-setup.md](./docs/github-repository-setup.md)
 
 Codex、Claude Code、Gemini CLI 的 skill id / plugin namespace 统一使用 `realsee-panorama-to-vr-skill`。详细约定见 [docs/capability-naming.md](./docs/capability-naming.md)。
 
@@ -132,3 +156,7 @@ Codex、Claude Code、Gemini CLI 的 skill id / plugin namespace 统一使用 `r
 - Claude 侧优先使用仓库内置 plugin 包装层。
 - Gemini CLI 可以直接消费 `.agents/skills`。
 - Gemini CLI 请在“仓库内直接发现”和“全局 skills link/install”之间二选一，不要同时启用同名 skill。
+
+## 仓库趋势
+
+[![Star History Chart](https://api.star-history.com/svg?repos=realsee-developer/realsee-panorama-to-vr-skill&type=Date)](https://www.star-history.com/#realsee-developer/realsee-panorama-to-vr-skill&Date)

@@ -2,6 +2,19 @@
 
 ## Development usage
 
+For a stable production install, pin a Git release tag first:
+
+```bash
+VERSION=v0.1.0
+git clone --branch "$VERSION" --depth 1 https://github.com/realsee-developer/realsee-panorama-to-vr-skill.git
+cd realsee-panorama-to-vr-skill
+npm install
+npm run sync:claude-plugin
+claude --plugin-dir ./.claude-plugin/realsee-panorama-to-vr-skill
+```
+
+For development, you can also clone the default branch:
+
 Clone the repository, install dependencies, sync the bundled plugin skill, then start Claude Code with the local plugin directory:
 
 ```bash
@@ -59,3 +72,8 @@ For manual shell recovery outside Claude, the repository also includes:
 npm run poll:bg -- --workspace ./workspace --task-code abc123
 npm run poll:status -- --workspace ./workspace --task-code abc123
 ```
+
+## Release policy
+
+- `main` is the integration branch.
+- Stable Claude plugin consumption should pin a GitHub Release tag such as `v0.1.0`.
