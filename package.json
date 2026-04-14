@@ -1,6 +1,6 @@
 {
   "name": "realsee-panorama-to-vr-skill",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "GitHub-ready multi-host skill repository for turning panoramas into Realsee VR spaces from Codex, Claude Code, and Gemini CLI.",
   "type": "module",

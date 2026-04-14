@@ -29,7 +29,7 @@ The repository toolchain uses Node.js in all three places:
 ## Releases
 
 - `main` is the integration branch for ongoing development.
-- Stable distribution happens through Git tags and GitHub Releases such as `v1.0.0`.
+- Stable distribution happens through Git tags and GitHub Releases such as `v1.0.1`.
 - Production installs use a release tag instead of moving `main`.
 - When this repository is listed on `skills.sh`, that page is a discovery entry. GitHub Releases provide reproducible pinned installs.
 
@@ -57,9 +57,9 @@ The repository toolchain uses Node.js in all three places:
 
 Credential registration entry points:
 
-- `REALSEE_REGION=cn`: register at [my.realsee.cn](https://my.realsee.cn/?utm_source=github) or use [h5.realsee.com/vrapplink](https://h5.realsee.com/vrapplink?utm_source=github)
-- `REALSEE_REGION=global`: register at [my.realsee.ai](https://my.realsee.ai/?utm_source=github) or use [h5.realsee.com/vrapplink](https://h5.realsee.com/vrapplink?utm_source=github)
-- Region not decided yet: use [h5.realsee.com/vrapplink](https://h5.realsee.com/vrapplink?utm_source=github) first, then confirm whether the account is `cn` or `global`
+- `REALSEE_REGION=cn`: register at [my.realsee.cn](https://my.realsee.cn/?utm_source=github)
+- `REALSEE_REGION=global`: register at [my.realsee.ai](https://my.realsee.ai/?utm_source=github)
+- Region not decided yet: do not use [h5.realsee.com/vrapplink](https://h5.realsee.com/vrapplink) to infer it. That page is for downloading the Realsee app. Confirm the account region through your Realsee account owner or Realsee support first.
 
 API capability activation uses [developer@realsee.com](mailto:developer@realsee.com?subject=Panorama-to-VR%20API%20Capability%20Request&body=Account%20region%3A%20%0AUserID%3A%20%0AIdentityID%3A%20%0A). The request includes account region, `UserID`, and `IdentityID`.
 
@@ -72,7 +72,7 @@ npm install
 Pinned release install:
 
 ```bash
-VERSION=v1.0.0
+VERSION=v1.0.1
 git clone --branch "$VERSION" --depth 1 https://github.com/realsee-developer/realsee-panorama-to-vr-skill.git
 cd realsee-panorama-to-vr-skill
 npm install
@@ -142,6 +142,8 @@ The runtime writes one isolated working directory per task and always produces:
 - Codex: [docs/codex.md](./docs/codex.md)
 - Claude Code: [docs/claude-plugin.md](./docs/claude-plugin.md)
 - Gemini CLI: [docs/gemini-cli.md](./docs/gemini-cli.md)
+- Install Guide Overview: [docs/install-guides.md](./docs/install-guides.md)
+- Public Distribution: [docs/public-distribution.md](./docs/public-distribution.md)
 - Release flow: [docs/releases.md](./docs/releases.md)
 
 ## Notes
@@ -150,7 +152,7 @@ The runtime writes one isolated working directory per task and always produces:
 - This repository does **not** publish a standalone CLI package.
 - Claude integration in this repository uses the bundled plugin wrapper.
 - Gemini CLI can load the skill directly from `.agents/skills`.
-- Gemini CLI uses either workspace discovery or a global `skills link/install`. Running both with the same skill name produces an override warning.
+- Gemini CLI can use the repository-local skill files directly. Some environments also expose a `gemini skills` flow. Avoid enabling both the repository-local copy and a same-name global skill at the same time.
 
 ## Repository Trends
 

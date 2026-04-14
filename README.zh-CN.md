@@ -29,7 +29,7 @@
 ## 发布
 
 - `main` 分支用于持续开发集成。
-- 稳定版本通过 Git tag 和 GitHub Release 发布，例如 `v1.0.0`。
+- 稳定版本通过 Git tag 和 GitHub Release 发布，例如 `v1.0.1`。
 - 面向生产环境的接入请固定到某个 release tag，不要直接跟随变化中的 `main`。
 - `skills.sh` 页面用于发现，GitHub Release/tag 用于可复现安装。
 
@@ -56,9 +56,9 @@
 
 凭证注册入口：
 
-- `REALSEE_REGION=cn`：前往 [my.realsee.cn](https://my.realsee.cn/?utm_source=github) 注册，或使用统一链接 [h5.realsee.com/vrapplink](https://h5.realsee.com/vrapplink?utm_source=github)
-- `REALSEE_REGION=global`：前往 [my.realsee.ai](https://my.realsee.ai/?utm_source=github) 注册，或使用统一链接 [h5.realsee.com/vrapplink](https://h5.realsee.com/vrapplink?utm_source=github)
-- 还没确定账号可用区：先使用统一链接 [h5.realsee.com/vrapplink](https://h5.realsee.com/vrapplink?utm_source=github) 注册，再确认账号归属 `cn` 或 `global`
+- `REALSEE_REGION=cn`：前往 [my.realsee.cn](https://my.realsee.cn/?utm_source=github) 注册
+- `REALSEE_REGION=global`：前往 [my.realsee.ai](https://my.realsee.ai/?utm_source=github) 注册
+- 还没确定账号可用区：不要使用 [h5.realsee.com/vrapplink](https://h5.realsee.com/vrapplink) 判断地区。这个页面用于下载 Realsee App。请先向账号持有人或 Realsee 支持确认账号归属区。
 
 接口能力开通邮箱为 [developer@realsee.com](mailto:developer@realsee.com?subject=%E5%85%A8%E6%99%AF%E5%9B%BE%E7%94%9F%E6%88%90VR%20%E6%8E%A5%E5%8F%A3%E8%83%BD%E5%8A%9B%E5%BC%80%E9%80%9A%E7%94%B3%E8%AF%B7&body=%E8%B4%A6%E5%8F%B7%E5%8F%AF%E7%94%A8%E5%8C%BA%EF%BC%9A%20%0AUserID%EF%BC%9A%20%0AIdentityID%EF%BC%9A%20%0A)。邮件内容包含账号可用区、`UserID`、`IdentityID`。
 
@@ -71,7 +71,7 @@ npm install
 固定版本安装：
 
 ```bash
-VERSION=v1.0.0
+VERSION=v1.0.1
 git clone --branch "$VERSION" --depth 1 https://github.com/realsee-developer/realsee-panorama-to-vr-skill.git
 cd realsee-panorama-to-vr-skill
 npm install
@@ -141,6 +141,8 @@ npm run poll:status -- \
 - Codex: [docs/codex.md](./docs/codex.md)
 - Claude Code: [docs/claude-plugin.md](./docs/claude-plugin.md)
 - Gemini CLI: [docs/gemini-cli.md](./docs/gemini-cli.md)
+- 安装总览: [docs/install-guides.md](./docs/install-guides.md)
+- 公开分发: [docs/public-distribution.md](./docs/public-distribution.md)
 - Release 流程: [docs/releases.md](./docs/releases.md)
 
 ## 说明
@@ -149,7 +151,7 @@ npm run poll:status -- \
 - 首版不发布独立 CLI 包。
 - Claude 侧使用仓库内置 plugin 目录。
 - Gemini CLI 可以直接消费 `.agents/skills`。
-- Gemini CLI 使用“仓库内直接发现”或“全局 skills link/install”其中一种方式；同名 skill 同时启用时会出现覆盖提示。
+- Gemini CLI 可以直接使用仓库内的 skill 文件；部分环境也提供 `gemini skills` 流程。避免同时启用仓库内副本和同名全局 skill。
 
 ## 仓库趋势
 

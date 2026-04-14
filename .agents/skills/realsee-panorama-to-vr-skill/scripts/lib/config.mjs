@@ -39,12 +39,12 @@ function parsePositiveInteger(value, name) {
 
 function getMissingCredentialsMessage(regionHint) {
   const normalizedRegion = String(regionHint ?? '').trim().toLowerCase()
-  let registrationHint = 'Register a Realsee account at my.realsee.cn for cn, at my.realsee.ai for global, or use the unified link https://h5.realsee.com/vrapplink.'
+  let registrationHint = 'Register a Realsee account at my.realsee.cn for cn or at my.realsee.ai for global. If you do not know the account region yet, confirm it with the account owner or Realsee support before proceeding.'
 
   if (normalizedRegion === 'cn') {
-    registrationHint = 'Register a Realsee cn account at my.realsee.cn or use the unified link https://h5.realsee.com/vrapplink.'
+    registrationHint = 'Register a Realsee cn account at my.realsee.cn.'
   } else if (normalizedRegion === 'global') {
-    registrationHint = 'Register a Realsee global account at my.realsee.ai or use the unified link https://h5.realsee.com/vrapplink.'
+    registrationHint = 'Register a Realsee global account at my.realsee.ai.'
   }
 
   return [

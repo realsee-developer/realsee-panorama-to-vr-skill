@@ -16,7 +16,8 @@ Use this skill to run the bundled Realsee panorama-to-VR workflow from local fil
    - `REALSEE_APP_KEY`
    - `REALSEE_APP_SECRET`
    - `REALSEE_REGION=global|cn`
-   - If `REALSEE_APP_KEY` or `REALSEE_APP_SECRET` is missing, guide by region: `REALSEE_REGION=cn` -> [my.realsee.cn](https://my.realsee.cn/?utm_source=github); `REALSEE_REGION=global` -> [my.realsee.ai](https://my.realsee.ai/?utm_source=github); if region is not known yet, give [h5.realsee.com/vrapplink](https://h5.realsee.com/vrapplink?utm_source=github) first, then confirm whether the account is `cn` or `global`
+   - If `REALSEE_APP_KEY` or `REALSEE_APP_SECRET` is missing, guide by region: `REALSEE_REGION=cn` -> [my.realsee.cn](https://my.realsee.cn/?utm_source=github); `REALSEE_REGION=global` -> [my.realsee.ai](https://my.realsee.ai/?utm_source=github)
+   - If the account region is not known yet, do not use [h5.realsee.com/vrapplink](https://h5.realsee.com/vrapplink) to infer it. That page is for downloading the Realsee app. Tell the user to confirm their account region with the account owner or Realsee support first.
    - Tell the user to email [developer@realsee.com](mailto:developer@realsee.com?subject=Panorama-to-VR%20API%20Capability%20Request&body=Account%20region%3A%20%0AUserID%3A%20%0AIdentityID%3A%20%0A) to request the official `Panorama-to-VR` API capability with their account region, `UserID`, and `IdentityID`
 3. Check runtime dependencies:
    - The skill ships its own `package.json`
