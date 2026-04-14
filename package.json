@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@realsee/universal-uploader": "^0.0.10",
-    "dotenv": "^16.6.1",
+    "dotenv": "^17.4.2",
     "fflate": "^0.8.2",
     "jimp": "^1.6.0"
   }
