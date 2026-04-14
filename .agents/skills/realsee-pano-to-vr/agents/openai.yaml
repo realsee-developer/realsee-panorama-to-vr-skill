@@ -1,0 +1,7 @@
+interface:
+  display_name: "Realsee Pano To VR"
+  short_description: "Turn local panoramas into Realsee VR spaces."
+  default_prompt: "Use $realsee-pano-to-vr to turn a local panorama set into a Realsee VR space."
+
+policy:
+  allow_implicit_invocation: false

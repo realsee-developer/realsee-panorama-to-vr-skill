@@ -1,0 +1,11 @@
+node_modules/
+.env
+.DS_Store
+workspace/
+workspace-*/
+workspace-validation/
+tmp-smoke/
+dist/
+*.log
+*.tmp
+*.swp

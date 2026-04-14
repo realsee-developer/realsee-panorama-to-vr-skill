@@ -1,0 +1,652 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "全景转 VR",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [],
+  "paths": {
+    "/auth/access_token": {
+      "post": {
+        "summary": "获取 access_token",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "app_key": {
+                    "description": "开放平台的 AppKey",
+                    "example": "{{REALSEE_GATEWAY_APP_KEY}}",
+                    "type": "string"
+                  },
+                  "app_secret": {
+                    "description": "开放平台的 AppSecret",
+                    "example": "{{REALSEE_GATEWAY_APP_SECRET}}",
+                    "type": "string"
+                  }
+                },
+                "required": ["app_key", "app_secret"]
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/AccessTokenData"
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "summary": "成功示例",
+                    "value": {
+                      "request_id": "20240318112130-102721757-9929822da69c73312d8338c6a904b2a1",
+                      "trace_id": "c7f8a6a3-52f1-46c1-9e9a-f052acc160e6",
+                      "business_code": "",
+                      "osi_request_id": "",
+                      "code": 0,
+                      "status": "success",
+                      "data": {
+                        "access_token": "VE9LRU5fVjJLTmRBM3J1ZWVweEZwWVF6WjIraE5EektaeFVIWEgybG1MOUdPOTFZT0JJPQ",
+                        "expire_at": 1710732700
+                      },
+                      "cost": 0
+                    }
+                  },
+                  "error": {
+                    "summary": "异常示例",
+                    "value": {
+                      "request_id": "20240318112417-1027202105-d1a3958fffc59ad51616986d63d6756b",
+                      "trace_id": "0c53423e-69f2-4b9c-9d16-3a7c5f7e927f",
+                      "business_code": "",
+                      "osi_request_id": "",
+                      "code": -1,
+                      "status": "illegal app",
+                      "data": null,
+                      "cost": 0
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/open/v1/pano/file/token": {
+      "get": {
+        "summary": "获取上传对象存储使用的临时凭据",
+        "deprecated": false,
+        "description": "返回用于上传文件到对象存储（S3/COS/OSS）的临时密钥凭证，凭证包含 bucket、region、临时 AK/SK 及下载配置。",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "由 /auth/access_token 获取的 access_token",
+            "required": true,
+            "example": "{{Authorization}}",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/ApiResponse" },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/UploadToken"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "examples": {
+                  "success": {
+                    "summary": "成功示例（私有桶 + Transfer Acceleration）",
+                    "value": {
+                      "request_id": "20240318112130-1023456789-abcdef1234567890abcdef1234567890",
+                      "trace_id": "abcdef12-3456-7890-abcd-ef1234567890",
+                      "business_code": "",
+                      "osi_request_id": "",
+                      "code": 0,
+                      "status": "success",
+                      "data": {
+                        "app_id": "xxxxxxxxxxxx",
+                        "backup": null,
+                        "bucket": "vrlab-private",
+                        "custom_domain": "vrlab-private.s3-accelerate.amazonaws.com",
+                        "custom_scheme": "https",
+                        "download_host": "",
+                        "download_type": "presign",
+                        "expire": 3600,
+                        "host": "https://s3-accelerate.amazonaws.com",
+                        "is_accelerate": "1",
+                        "prefix": "vrfile/release/open_task_original/T-XXXXXXXXXX/pano/1700000000/",
+                        "region": "ap-northeast-1",
+                        "sessionToken": "IQoJb3...(masked)",
+                        "tmpSecretId": "ASIASS...(masked)",
+                        "tmpSecretKey": "...(masked)",
+                        "ttl": 3600
+                      },
+                      "cost": 83
+                    }
+                  },
+                  "error_token_expired": {
+                    "summary": "access_token 已过期（code: -3）",
+                    "value": {
+                      "request_id": "20260326222002-172313621-28844868e29c643441accaf984339950",
+                      "trace_id": "e391a7e3e69fcec2e39fa72f4d8340ae",
+                      "business_code": "",
+                      "osi_request_id": "",
+                      "code": -3,
+                      "status": "access_token expired",
+                      "data": {},
+                      "cost": 1
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/open/v1/pano/task/submit": {
+      "post": {
+        "summary": "提交处理任务",
+        "deprecated": false,
+        "description": "提交全景图处理任务，返回 task_code 用于后续状态查询。zip_cos_url 与 private_cos_key 二选一：若上传凭证的 download_host 为空（私有桶，download_type=presign），则使用 private_cos_key（值为上传结果的 path 字段，即 token.prefix + uploadKey）；否则使用 zip_cos_url（上传结果的 download_url）。",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "由 /auth/access_token 获取的 access_token",
+            "required": true,
+            "example": "{{Authorization}}",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "project_name": {
+                    "type": "string",
+                    "title": "项目名称",
+                    "description": "项目名称，用于创建 project"
+                  },
+                  "zip_cos_url": {
+                    "type": "string",
+                    "title": "全景图 ZIP 包公网地址",
+                    "description": "全景图 ZIP 包的 HTTP 公网下载地址（支持预签名 URL），与 private_cos_key 二选一"
+                  },
+                  "private_cos_key": {
+                    "type": "string",
+                    "title": "全景图 ZIP 包私有桶路径",
+                    "description": "全景图 ZIP 包在私有桶中的 S3 对象路径，值为上传结果的 path 字段（= token.prefix + uploadKey），例如 vrfile/xxx/pano/xxx/test.zip。当上传凭证 download_host 为空时（私有桶）使用此字段代替 zip_cos_url。"
+                  }
+                },
+                "required": ["project_name"]
+              },
+                "examples": {
+                  "with_zip_cos_url": {
+                    "summary": "使用预签名 URL（download_host 有值时）",
+                    "value": {
+                      "project_name": "my-pano-project",
+                      "zip_cos_url": "https://download.example.com/vrfile/xxx/pano/xxx/panoramas.zip"
+                    }
+                  },
+                  "with_private_cos_key": {
+                    "summary": "使用私有桶路径（download_host 为空时）",
+                    "value": {
+                      "project_name": "my-pano-project",
+                      "private_cos_key": "vrfile/release/open_task_original/T-XXXXXXXXXX/pano/1700000000/my-pano-project-1700000000000.zip"
+                    }
+                  }
+                }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/ApiResponse" },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/TaskSubmitData"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "examples": {
+                  "success": {
+                    "summary": "成功示例（使用 private_cos_key）",
+                    "value": {
+                      "request_id": "20240318112130-1023456789-abcdef1234567890abcdef1234567890",
+                      "trace_id": "abcdef12-3456-7890-abcd-ef1234567890",
+                      "business_code": "0",
+                      "osi_request_id": "",
+                      "code": 0,
+                      "status": "success",
+                      "data": {
+                        "project_id": "pano-xxxxxxxxxxxxxxxxxxxx",
+                        "task_code": "xxxxxxxxxxxxxxxxxxxx"
+                      },
+                      "cost": 534
+                    }
+                  },
+                  "error_missing_url": {
+                    "summary": "缺少 zip_cos_url 或 private_cos_key",
+                    "value": {
+                      "request_id": "20260326214530-172313621-5e3da7bbf2e554b1d24bfad127da1e11",
+                      "trace_id": "4084b5958bb982d84dcbad1981dde466",
+                      "business_code": "50",
+                      "osi_request_id": "",
+                      "code": -1,
+                      "status": "zip_cos_url or private_cos_key is required",
+                      "data": null,
+                      "cost": 4
+                    }
+                  },
+                  "error_user_id_empty": {
+                    "summary": "用户标识不能为空（business_code: 10001）— 可能是 access_token 鉴权不足",
+                    "value": {
+                      "request_id": "20260326222128-1723116198-662307dfb812c10c60999cf0a7943a72",
+                      "trace_id": "156873fee1b8941d2f83ec989dba3d7c",
+                      "business_code": "10001",
+                      "osi_request_id": "",
+                      "code": -1,
+                      "status": "create project via mix-svc failed: 用户标识不能为空",
+                      "data": null,
+                      "cost": 12
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/open/v1/pano/task/status": {
+      "get": {
+        "summary": "查询任务状态",
+        "deprecated": false,
+        "description": "使用提交处理任务接口返回的 task_code 进行任务状态查询，任务完成后返回 VR 链接。",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "task_code",
+            "in": "query",
+            "description": "任务 code，由 /open/v1/pano/task/submit 返回",
+            "required": true,
+            "example": "TASK_ABC123",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "由 /auth/access_token 获取的 access_token",
+            "required": true,
+            "example": "{{Authorization}}",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/ApiResponse" },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/TaskStatusData"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "examples": {
+                  "processing": {
+                    "summary": "处理中",
+                    "value": {
+                      "request_id": "20240318112130-1023456789-abcdef1234567890abcdef1234567890",
+                      "trace_id": "abcdef12-3456-7890-abcd-ef1234567890",
+                      "business_code": "0",
+                      "osi_request_id": "",
+                      "code": 0,
+                      "status": "success",
+                      "data": {
+                        "project_id": "pano-xxxxxxxxxxxxxxxxxxxx",
+                        "status": "processing",
+                        "vr_url": ""
+                      },
+                      "cost": 14
+                    }
+                  },
+                  "success": {
+                    "summary": "任务完成（vr_url 返回完整 URL）",
+                    "value": {
+                      "request_id": "20240318112130-1023456789-abcdef1234567890abcdef1234567890",
+                      "trace_id": "abcdef12-3456-7890-abcd-ef1234567890",
+                      "business_code": "0",
+                      "osi_request_id": "",
+                      "code": 0,
+                      "status": "success",
+                      "data": {
+                        "project_id": "pano-xxxxxxxxxxxxxxxxxxxx",
+                        "status": "success",
+                        "vr_url": "https://realsee.ai/link_code"
+                      },
+                      "cost": 8
+                    }
+                  },
+                  "failed": {
+                    "summary": "任务失败",
+                    "value": {
+                      "request_id": "20240318112130-1023456789-abcdef1234567890abcdef1234567890",
+                      "trace_id": "abcdef12-3456-7890-abcd-ef1234567890",
+                      "business_code": "0",
+                      "osi_request_id": "",
+                      "code": 0,
+                      "status": "success",
+                      "data": {
+                        "project_id": "pano-xxxxxxxxxxxxxxxxxxxx",
+                        "status": "failed",
+                        "vr_url": ""
+                      },
+                      "cost": 8
+                    }
+                  },
+                  "error_token_expired": {
+                    "summary": "access_token 已过期（轮询期间需自动续期）",
+                    "value": {
+                      "request_id": "20260326222002-172313621-28844868e29c643441accaf984339950",
+                      "trace_id": "e391a7e3e69fcec2e39fa72f4d8340ae",
+                      "business_code": "",
+                      "osi_request_id": "",
+                      "code": -3,
+                      "status": "access_token expired",
+                      "data": {},
+                      "cost": 1
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "webhooks": {},
+  "components": {
+    "schemas": {
+      "ApiResponse": {
+        "type": "object",
+        "description": "所有接口通用响应信封",
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "description": "请求唯一 ID"
+          },
+          "trace_id": {
+            "type": "string",
+            "description": "链路追踪 ID"
+          },
+          "business_code": {
+            "type": "string",
+            "description": "业务错误码字符串。鉴权成功时为空字符串 \"\"，有业务结果时为 \"0\"（字符串），失败时为具体错误码（如 \"10001\"）"
+          },
+          "osi_request_id": {
+            "type": "string"
+          },
+          "code": {
+            "type": "integer",
+            "description": "响应码。0 = 成功；-1 = 业务失败；-3 = access_token 已过期（需重新调用 /auth/access_token 续期）"
+          },
+          "status": {
+            "type": "string",
+            "description": "状态描述。成功时为 \"success\"，失败时为具体错误说明，如 \"access_token expired\" / \"illegal app\""
+          },
+          "data": {
+            "description": "业务数据，失败时为 null"
+          },
+          "cost": {
+            "type": "integer",
+            "description": "服务端处理耗时（ms）"
+          }
+        },
+        "required": [
+          "request_id",
+          "trace_id",
+          "business_code",
+          "osi_request_id",
+          "code",
+          "status",
+          "cost"
+        ]
+      },
+      "AccessTokenData": {
+        "type": "object",
+        "description": "access_token 数据",
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "description": "访问令牌，用于后续接口的 Authorization 头"
+          },
+          "expire_at": {
+            "type": "integer",
+            "description": "过期时间（Unix 时间戳，秒）"
+          }
+        },
+        "required": ["access_token", "expire_at"]
+      },
+      "UploadToken": {
+        "type": "object",
+        "description": "对象存储临时上传凭证（实测字段，与 @realsee/universal-uploader UploadToken 接口对应）",
+        "properties": {
+          "tmpSecretId": {
+            "type": "string",
+            "description": "临时 AccessKeyId（AWS STS）"
+          },
+          "tmpSecretKey": {
+            "type": "string",
+            "description": "临时 SecretAccessKey（AWS STS）"
+          },
+          "sessionToken": {
+            "type": "string",
+            "description": "临时会话 Token（AWS STS）"
+          },
+          "ttl": {
+            "type": "integer",
+            "description": "凭证有效期（秒）。实测值：3600",
+            "example": 3600
+          },
+          "expire": {
+            "type": "integer",
+            "description": "凭证有效期（秒，与 ttl 相同）。注意：这是 TTL 秒数，不是 Unix 时间戳。实测值：3600",
+            "example": 3600
+          },
+          "prefix": {
+            "type": "string",
+            "description": "上传路径前缀，上传 key 须拼接在此之后。格式：vrfile/release/open_task_original/{tenant}/{type}/{timestamp}/",
+            "example": "vrfile/release/open_task_original/T-XXXXXXXXXX/pano/1700000000/"
+          },
+          "app_id": {
+            "type": "string",
+            "description": "AWS 账号 ID",
+            "example": "xxxxxxxxxxxx"
+          },
+          "backup": {
+            "description": "备用字段，通常为 null",
+            "nullable": true
+          },
+          "bucket": {
+            "type": "string",
+            "description": "S3 存储桶名称",
+            "example": "vrlab-private"
+          },
+          "region": {
+            "type": "string",
+            "description": "S3 存储桶区域",
+            "example": "ap-northeast-1"
+          },
+          "host": {
+            "type": "string",
+            "description": "S3 endpoint（含协议）。开启加速时为 https://s3-accelerate.amazonaws.com",
+            "example": "https://s3-accelerate.amazonaws.com"
+          },
+          "is_accelerate": {
+            "type": "string",
+            "description": "是否开启 S3 Transfer Acceleration：\"1\" 开启，\"0\" 关闭",
+            "enum": ["0", "1"],
+            "example": "1"
+          },
+          "custom_domain": {
+            "type": "string",
+            "description": "自定义上传域名（开启加速时使用）。例如 vrlab-private.s3-accelerate.amazonaws.com",
+            "example": "vrlab-private.s3-accelerate.amazonaws.com"
+          },
+          "custom_scheme": {
+            "type": "string",
+            "description": "自定义域名的 URL scheme",
+            "example": "https"
+          },
+          "download_type": {
+            "type": "string",
+            "enum": ["presign", "direct"],
+            "description": "下载链接生成方式。presign = 预签名（私有桶），direct = 直链（公开桶）"
+          },
+          "download_host": {
+            "type": "string",
+            "description": "下载专用 host。私有桶场景下为空字符串，此时应以 private_cos_key 提交任务",
+            "example": ""
+          },
+          "force_path_style": {
+            "type": "boolean",
+            "description": "是否强制 path-style URL。通常不返回此字段"
+          }
+        },
+        "required": [
+          "tmpSecretId",
+          "tmpSecretKey",
+          "sessionToken",
+          "ttl",
+          "expire",
+          "prefix",
+          "app_id",
+          "bucket",
+          "region",
+          "host",
+          "is_accelerate",
+          "custom_domain",
+          "custom_scheme",
+          "download_type",
+          "download_host"
+        ]
+      },
+      "TaskSubmitData": {
+        "type": "object",
+        "description": "提交任务成功后的响应数据（实测字段）",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "description": "创建的项目 ID",
+            "example": "pano-xxxxxxxxxxxxxxxxxxxx"
+          },
+          "task_code": {
+            "type": "string",
+            "description": "任务唯一标识，用于 /open/v1/pano/task/status 查询",
+            "example": "xxxxxxxxxxxxxxxxxxxx"
+          }
+        },
+        "required": ["project_id", "task_code"]
+      },
+      "TaskStatusData": {
+        "type": "object",
+        "description": "任务状态数据（实测字段）",
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "description": "关联的项目 ID",
+            "example": "pano-xxxxxxxxxxxxxxxxxxxx"
+          },
+          "status": {
+            "type": "string",
+            "description": "任务状态",
+            "enum": ["pending", "processing", "success", "failed"],
+            "example": "processing"
+          },
+          "vr_url": {
+            "type": "string",
+            "description": "VR 链接。处理中时为空字符串 \"\"，完成后为完整 URL",
+            "example": ""
+          }
+        },
+        "required": ["project_id", "status", "vr_url"]
+      }
+    },
+    "responses": {},
+    "securitySchemes": {}
+  },
+  "servers": [
+    {
+      "url": "https://app-gateway.realsee.ai",
+      "description": "海外公网生产环境"
+    }
+  ],
+  "security": []
+}

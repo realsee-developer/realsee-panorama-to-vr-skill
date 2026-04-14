@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "floor_map": {
+    "0": 0
+  },
+  "project_name": "san-giovanni-battista-montevecchia-demo-{{timestamp}}",
+  "scan_list": [
+    { "id": "entrance", "floor": 0 },
+    { "id": "entrance-02", "floor": 0 },
+    { "id": "end-of-nave", "floor": 0 },
+    { "id": "presbyterium", "floor": 0 },
+    { "id": "high-altar", "floor": 0 }
+  ]
+}
