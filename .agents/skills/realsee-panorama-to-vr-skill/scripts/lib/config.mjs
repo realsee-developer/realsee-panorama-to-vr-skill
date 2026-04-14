@@ -26,6 +26,17 @@ function pickEnv(...keys) {
   return undefined
 }
 
+function parsePositiveInteger(value, name) {
+  if (typeof value === 'boolean') {
+    throw new Error(`Invalid ${name}: missing numeric value`)
+  }
+  const parsed = Number(value)
+  if (!Number.isInteger(parsed) || parsed <= 0) {
+    throw new Error(`Invalid ${name}: "${value}" must be a positive integer`)
+  }
+  return parsed
+}
+
 function getMissingCredentialsMessage(regionHint) {
   const normalizedRegion = String(regionHint ?? '').trim().toLowerCase()
   let registrationHint = 'Register a Realsee account at my.realsee.cn for cn, at my.realsee.ai for global, or use the unified link https://h5.realsee.com/vrapplink.'
@@ -66,7 +77,13 @@ export function getRuntimeConfig(args) {
     region,
     baseUrl: BASE_URLS[region],
     workspaceRoot: resolve(args.workspace ?? DEFAULT_WORKSPACE_ROOT),
-    pollIntervalMs: Number(args['poll-interval-ms'] ?? DEFAULT_POLL_INTERVAL_MS),
-    pollMaxAttempts: Number(args['poll-max-attempts'] ?? DEFAULT_POLL_MAX_ATTEMPTS),
+    pollIntervalMs: parsePositiveInteger(
+      args['poll-interval-ms'] ?? DEFAULT_POLL_INTERVAL_MS,
+      'poll-interval-ms',
+    ),
+    pollMaxAttempts: parsePositiveInteger(
+      args['poll-max-attempts'] ?? DEFAULT_POLL_MAX_ATTEMPTS,
+      'poll-max-attempts',
+    ),
   }
 }

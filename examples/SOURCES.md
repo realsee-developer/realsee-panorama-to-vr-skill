@@ -22,7 +22,7 @@ Included files:
 - `high-altar.jpg`
   - Source page: <https://commons.wikimedia.org/wiki/File:San_Giovanni_Battista_Martire_(Montevecchia)_-_photosphere_from_high_altar.jpg>
 
-Why this file exists:
+File scope:
 
 - to document that the repository no longer ships private customer data in `examples/`
 - to make the public source and license status explicit for downstream users

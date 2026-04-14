@@ -6,7 +6,7 @@ This repository uses Git tags and GitHub Releases as the stable distribution cha
 
 - `main` is the integration branch for ongoing development.
 - Stable versions are immutable tags such as `v0.1.0`.
-- External consumers should pin a release tag instead of following `main`.
+- External installs use a release tag instead of following `main`.
 
 ## Maintainer flow
 

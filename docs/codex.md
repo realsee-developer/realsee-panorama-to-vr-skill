@@ -2,7 +2,7 @@
 
 ## Install
 
-For a stable production install, pin a Git release tag:
+Stable production install:
 
 ```bash
 VERSION=v0.1.0
@@ -12,9 +12,7 @@ npm install
 npm run install:codex-skill
 ```
 
-For development, you can also clone the default branch:
-
-Clone this repository, install dependencies, then link the canonical skill into your Codex skills directory:
+Default-branch development install:
 
 ```bash
 git clone https://github.com/realsee-developer/realsee-panorama-to-vr-skill.git
@@ -23,7 +21,7 @@ npm install
 npm run install:codex-skill
 ```
 
-If you prefer to install dependencies inside the skill itself instead of at the repository root:
+Skill-local dependency install:
 
 ```bash
 npm install --prefix ./.agents/skills/realsee-panorama-to-vr-skill
@@ -48,7 +46,7 @@ If you do not have credentials yet:
 
 - `REALSEE_REGION=cn`: register at `my.realsee.cn` or use `https://h5.realsee.com/vrapplink`
 - `REALSEE_REGION=global`: register at `my.realsee.ai` or use `https://h5.realsee.com/vrapplink`
-- Unknown region: use the unified link first, then confirm whether the account should be `cn` or `global`
+- Unknown region: use the unified link first, then confirm whether the account is `cn` or `global`
 
 After that, email `developer@realsee.com` to request the official `全景图生成VR` API capability. Include your account region, `UserID`, and `IdentityID`.
 
@@ -79,4 +77,4 @@ npm run poll:bg -- \
 ## Release policy
 
 - `main` is the integration branch.
-- Stable Codex consumption should pin a GitHub Release tag such as `v0.1.0`.
+- Stable Codex installations use a GitHub Release tag such as `v0.1.0`.

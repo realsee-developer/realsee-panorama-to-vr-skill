@@ -5,7 +5,7 @@ description: Turn a local panorama set into a Realsee VR space through the Reals
 
 # 全景图生成VR
 
-Official capability names: `全景图生成VR` / `Panorama-to-VR`
+User-facing capability name: `全景图生成VR` in Chinese and `Panorama-to-VR` in English.
 
 Developer-facing skill id: `realsee-panorama-to-vr-skill`
 
@@ -18,7 +18,7 @@ Use this skill to run the bundled Realsee panorama-to-VR workflow from local fil
    - `REALSEE_APP_KEY`
    - `REALSEE_APP_SECRET`
    - `REALSEE_REGION=global|cn`
-   - If `REALSEE_APP_KEY` or `REALSEE_APP_SECRET` is missing, guide by region: `REALSEE_REGION=cn` -> `my.realsee.cn`; `REALSEE_REGION=global` -> `my.realsee.ai`; if region is not known yet, give both plus `https://h5.realsee.com/vrapplink`
+   - If `REALSEE_APP_KEY` or `REALSEE_APP_SECRET` is missing, guide by region: `REALSEE_REGION=cn` -> `my.realsee.cn`; `REALSEE_REGION=global` -> `my.realsee.ai`; if region is not known yet, give the unified link `https://h5.realsee.com/vrapplink` first, then confirm whether the account is `cn` or `global`
    - Tell the user to email `developer@realsee.com` to request the official `全景图生成VR` API capability with their account region, `UserID`, and `IdentityID`
 3. Check runtime dependencies:
    - The skill ships its own `package.json`

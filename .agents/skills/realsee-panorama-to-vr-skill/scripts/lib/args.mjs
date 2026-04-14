@@ -27,10 +27,26 @@ export function parseArgs(argv) {
   return args
 }
 
+function assertPositiveIntegerFlag(args, flag) {
+  if (args[flag] === undefined) {
+    return
+  }
+  if (args[flag] === true) {
+    throw new Error(`\`--${flag}\` requires a value.`)
+  }
+  const parsed = Number(args[flag])
+  if (!Number.isInteger(parsed) || parsed <= 0) {
+    throw new Error(`\`--${flag}\` must be a positive integer; got "${args[flag]}".`)
+  }
+}
+
 export function assertValidArgs(args) {
   if (args.help) {
     return
   }
+
+  assertPositiveIntegerFlag(args, 'poll-interval-ms')
+  assertPositiveIntegerFlag(args, 'poll-max-attempts')
 
   if (args['task-code']) {
     if (!args.workspace) {

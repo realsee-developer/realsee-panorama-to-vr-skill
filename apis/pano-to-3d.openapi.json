@@ -289,7 +289,7 @@
                     }
                   },
                   "error_user_id_empty": {
-                    "summary": "用户标识不能为空（business_code: 10001）— 可能是 access_token 鉴权不足",
+                    "summary": "用户标识不能为空（business_code: 10001）— access_token 鉴权失败或权限不足",
                     "value": {
                       "request_id": "20260326222128-1723116198-662307dfb812c10c60999cf0a7943a72",
                       "trace_id": "156873fee1b8941d2f83ec989dba3d7c",
