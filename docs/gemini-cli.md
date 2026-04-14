@@ -5,7 +5,7 @@
 Stable production install:
 
 ```bash
-VERSION=v0.1.0
+VERSION=v1.0.0
 git clone --branch "$VERSION" --depth 1 https://github.com/realsee-developer/realsee-panorama-to-vr-skill.git
 cd realsee-panorama-to-vr-skill
 npm install
@@ -60,11 +60,11 @@ You can also keep them in a local `.env` file if you run the bundled Node runtim
 
 If you do not have credentials yet:
 
-- `REALSEE_REGION=cn`: register at `my.realsee.cn` or use `https://h5.realsee.com/vrapplink`
-- `REALSEE_REGION=global`: register at `my.realsee.ai` or use `https://h5.realsee.com/vrapplink`
-- Unknown region: use the unified link first, then confirm whether the account is `cn` or `global`
+- `REALSEE_REGION=cn`: register at [my.realsee.cn](https://my.realsee.cn/?utm_source=github) or use [h5.realsee.com/vrapplink](https://h5.realsee.com/vrapplink?utm_source=github)
+- `REALSEE_REGION=global`: register at [my.realsee.ai](https://my.realsee.ai/?utm_source=github) or use [h5.realsee.com/vrapplink](https://h5.realsee.com/vrapplink?utm_source=github)
+- Unknown region: use [h5.realsee.com/vrapplink](https://h5.realsee.com/vrapplink?utm_source=github) first, then confirm whether the account is `cn` or `global`
 
-After that, email `developer@realsee.com` to request the official `全景图生成VR` API capability. Include your account region, `UserID`, and `IdentityID`.
+After that, email [developer@realsee.com](mailto:developer@realsee.com?subject=Panorama-to-VR%20API%20Capability%20Request&body=Account%20region%3A%20%0AUserID%3A%20%0AIdentityID%3A%20%0A) to request the official `Panorama-to-VR` API capability. Include your account region, `UserID`, and `IdentityID`.
 
 ## Typical prompts
 
@@ -82,4 +82,4 @@ npm run poll:status -- --workspace ./workspace --task-code abc123
 ## Release policy
 
 - `main` is the integration branch.
-- Stable Gemini installations use a GitHub Release tag such as `v0.1.0`.
+- Stable Gemini installations use a GitHub Release tag such as `v1.0.0`.

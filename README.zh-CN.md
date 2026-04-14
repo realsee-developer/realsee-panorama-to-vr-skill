@@ -1,24 +1,24 @@
-# 全景图生成VR SkillKit
+# 全景图生成VR
+
+[English](./README.md) | [中文](./README.zh-CN.md)
 
 [![CI](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/actions/workflows/ci.yml)
 [![CodeQL](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/actions/workflows/codeql.yml/badge.svg)](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/actions/workflows/codeql.yml)
 [![Latest Release](https://img.shields.io/github/v/release/realsee-developer/realsee-panorama-to-vr-skill?display_name=tag)](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/releases)
-[![License](https://img.shields.io/github/license/realsee-developer/realsee-panorama-to-vr-skill)](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/License-Private-red)](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/blob/main/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/realsee-developer/realsee-panorama-to-vr-skill?style=social)](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/stargazers)
 
-这个仓库用于把一组本地全景图通过 Realsee OpenAPI 编排成可访问的 VR 空间，并以 **GitHub 可接入仓库** 的方式提供给外部使用。
+`全景图生成VR` 用于把一组本地全景图通过 Realsee Open Platform 工作流生成可访问的 VR 空间。
 
-仓库对外的公开身份和 canonical skill id 为 `realsee-panorama-to-vr-skill`。
+这个仓库包含 Node.js 运行时、示例数据，以及面向 Codex、Claude Code、Gemini CLI 的接入资源。
 
-正式产品能力名称为 `全景图生成VR`，官方英文名称为 `Panorama-to-VR`。代码、脚本、接口字段、宿主触发名使用英文。
-
-它不是独立 `realsee-cli` 产品，而是一个共享技能仓库，首版覆盖：
+已包含的宿主接入：
 
 - Codex
 - Claude Code
 - Gemini CLI
 
-核心能力只有一套：位于 `.agents/skills/realsee-panorama-to-vr-skill/` 的 canonical skill，以及其中内置的 Node.js 编排运行时。
+运行时负责 `manifest` 校验或生成、ZIP 打包、上传令牌获取、对象上传、任务提交、轮询和结构化结果输出。
 
 仓库工具链使用 Node.js：
 
@@ -26,28 +26,25 @@
 - 维护脚本使用 Node.js
 - CI 校验使用 Node.js
 
-## 发布策略
+## 发布
 
 - `main` 分支用于持续开发集成。
-- 稳定版本通过 Git tag 和 GitHub Release 发布，例如 `v0.1.0`。
+- 稳定版本通过 Git tag 和 GitHub Release 发布，例如 `v1.0.0`。
 - 面向生产环境的接入请固定到某个 release tag，不要直接跟随变化中的 `main`。
-- 未来上架 `skills.sh` 时，该页面作为发现入口，GitHub Release/tag 作为可复现安装入口。
+- `skills.sh` 页面用于发现，GitHub Release/tag 用于可复现安装。
 
 ## 仓库结构
 
 - `.agents/skills/realsee-panorama-to-vr-skill/`
-  canonical skill 源目录，Gemini CLI 可以直接通过 `.agents/skills` 发现它。
+  skill 源目录，Gemini CLI 可以直接通过 `.agents/skills` 发现它。
 - `.claude-plugin/realsee-panorama-to-vr-skill/`
-  Claude Code plugin 包装层，支持 `--plugin-dir` 加载。
+  Claude Code plugin 目录，支持 `--plugin-dir` 加载。
 - `examples/manifest-input/`
   公开可分发的室内全景图样例和对应 `manifest.json`。
 - `examples/SOURCES.md`
   样例数据的来源页面和许可说明。
 - `scripts/install-codex-skill.mjs`
   Codex 本地 skill 安装脚本。
-- `docs/capability-naming.md`
-  正式能力名和开发标识的命名约定。
-
 ## 前置要求
 
 - Node.js 22+
@@ -57,13 +54,13 @@
   - `REALSEE_APP_SECRET`
   - `REALSEE_REGION=global|cn`
 
-如果你还没有 `REALSEE_APP_KEY` / `REALSEE_APP_SECRET`，需要按 `region` 区分引导：
+凭证注册入口：
 
-- `REALSEE_REGION=cn`：前往 `my.realsee.cn` 注册，或使用统一链接 `https://h5.realsee.com/vrapplink`
-- `REALSEE_REGION=global`：前往 `my.realsee.ai` 注册，或使用统一链接 `https://h5.realsee.com/vrapplink`
-- 还没确定账号可用区：先使用统一链接注册，再确认账号归属 `cn` 或 `global`
+- `REALSEE_REGION=cn`：前往 [my.realsee.cn](https://my.realsee.cn/?utm_source=github) 注册，或使用统一链接 [h5.realsee.com/vrapplink](https://h5.realsee.com/vrapplink?utm_source=github)
+- `REALSEE_REGION=global`：前往 [my.realsee.ai](https://my.realsee.ai/?utm_source=github) 注册，或使用统一链接 [h5.realsee.com/vrapplink](https://h5.realsee.com/vrapplink?utm_source=github)
+- 还没确定账号可用区：先使用统一链接 [h5.realsee.com/vrapplink](https://h5.realsee.com/vrapplink?utm_source=github) 注册，再确认账号归属 `cn` 或 `global`
 
-完成注册后，使用账号的【账号可用区 / region】【如视 ID / UserID】【组织账号 / IdentityID】发送邮件到 `developer@realsee.com`，申请开通“全景图生成VR”的接口能力。
+接口能力开通邮箱为 [developer@realsee.com](mailto:developer@realsee.com?subject=%E5%85%A8%E6%99%AF%E5%9B%BE%E7%94%9F%E6%88%90VR%20%E6%8E%A5%E5%8F%A3%E8%83%BD%E5%8A%9B%E5%BC%80%E9%80%9A%E7%94%B3%E8%AF%B7&body=%E8%B4%A6%E5%8F%B7%E5%8F%AF%E7%94%A8%E5%8C%BA%EF%BC%9A%20%0AUserID%EF%BC%9A%20%0AIdentityID%EF%BC%9A%20%0A)。邮件内容包含账号可用区、`UserID`、`IdentityID`。
 
 安装依赖：
 
@@ -71,18 +68,18 @@
 npm install
 ```
 
-如果你要按稳定版本接入，优先固定某个 release tag：
+固定版本安装：
 
 ```bash
-VERSION=v0.1.0
+VERSION=v1.0.0
 git clone --branch "$VERSION" --depth 1 https://github.com/realsee-developer/realsee-panorama-to-vr-skill.git
 cd realsee-panorama-to-vr-skill
 npm install
 ```
 
-canonical skill 目录里也带了独立的 [`package.json`](./.agents/skills/realsee-panorama-to-vr-skill/package.json)，如果某个宿主是直接消费 skill 目录本身，也可以在该目录单独安装依赖。
+skill 目录中也包含独立的 [`package.json`](./.agents/skills/realsee-panorama-to-vr-skill/package.json)。
 
-如果你希望通过本地 `.env` 加载凭证：
+本地 `.env` 加载方式：
 
 ```bash
 cp .env.example .env
@@ -120,7 +117,7 @@ npm run run -- \
   --json
 ```
 
-如果任务处理时间较长，可以把轮询放到后台：
+后台轮询：
 
 ```bash
 npm run poll:bg -- \
@@ -145,18 +142,15 @@ npm run poll:status -- \
 - Claude Code: [docs/claude-plugin.md](./docs/claude-plugin.md)
 - Gemini CLI: [docs/gemini-cli.md](./docs/gemini-cli.md)
 - Release 流程: [docs/releases.md](./docs/releases.md)
-- GitHub 仓库配置: [docs/github-repository-setup.md](./docs/github-repository-setup.md)
-
-Codex、Claude Code、Gemini CLI 的 skill id / plugin namespace 为 `realsee-panorama-to-vr-skill`。详细约定见 [docs/capability-naming.md](./docs/capability-naming.md)。
 
 ## 说明
 
 - 首版不做 MCP。
 - 首版不发布独立 CLI 包。
-- Claude 侧优先使用仓库内置 plugin 包装层。
+- Claude 侧使用仓库内置 plugin 目录。
 - Gemini CLI 可以直接消费 `.agents/skills`。
-- Gemini CLI 请在“仓库内直接发现”和“全局 skills link/install”之间二选一，不要同时启用同名 skill。
+- Gemini CLI 使用“仓库内直接发现”或“全局 skills link/install”其中一种方式；同名 skill 同时启用时会出现覆盖提示。
 
 ## 仓库趋势
 
-[![Star History Chart](https://api.star-history.com/svg?repos=realsee-developer/realsee-panorama-to-vr-skill&type=Date)](https://www.star-history.com/#realsee-developer/realsee-panorama-to-vr-skill&Date)
+[![Star History Chart](https://api.star-history.com/image?repos=realsee-developer/realsee-panorama-to-vr-skill&type=Date)](https://www.star-history.com/#realsee-developer/realsee-panorama-to-vr-skill&Date)

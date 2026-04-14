@@ -1,24 +1,24 @@
-# Panorama-to-VR SkillKit
+# Panorama-to-VR
+
+[English](./README.md) | [简体中文](./README.zh-CN.md)
 
 [![CI](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/actions/workflows/ci.yml)
 [![CodeQL](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/actions/workflows/codeql.yml/badge.svg)](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/actions/workflows/codeql.yml)
 [![Latest Release](https://img.shields.io/github/v/release/realsee-developer/realsee-panorama-to-vr-skill?display_name=tag)](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/releases)
-[![License](https://img.shields.io/github/license/realsee-developer/realsee-panorama-to-vr-skill)](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/License-Private-red)](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/blob/main/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/realsee-developer/realsee-panorama-to-vr-skill?style=social)](https://github.com/realsee-developer/realsee-panorama-to-vr-skill/stargazers)
 
-User-facing capability name: `全景图生成VR` in Chinese and `Panorama-to-VR` in English.
+`Panorama-to-VR` converts a local panorama set into a Realsee VR space through the Realsee Open Platform workflow.
 
-Turn a local panorama set into a Realsee VR space through a shared Agent Skill runtime.
+This repository contains the Node.js runtime, example data, and host integration assets used by Codex, Claude Code, and Gemini CLI.
 
-This repository is a **GitHub-distributed** skill repository under a company organization. It is not a standalone `realsee-cli` product. The public repository identity and canonical skill id are `realsee-panorama-to-vr-skill`.
-
-It provides one canonical skill plus host adapters for:
+Included host integrations:
 
 - Codex
 - Claude Code
 - Gemini CLI
 
-The runtime is a bundled Node.js workflow that handles manifest validation or generation, ZIP packaging, upload token retrieval, object upload, task submission, polling, and structured result output.
+The runtime handles manifest validation or generation, ZIP packaging, upload token retrieval, object upload, task submission, polling, and structured result output.
 
 The repository toolchain uses Node.js in all three places:
 
@@ -26,27 +26,25 @@ The repository toolchain uses Node.js in all three places:
 - maintenance scripts are Node.js
 - CI validation runs on Node.js only
 
-## Release policy
+## Releases
 
 - `main` is the integration branch for ongoing development.
-- Stable distribution happens through Git tags and GitHub Releases such as `v0.1.0`.
+- Stable distribution happens through Git tags and GitHub Releases such as `v1.0.0`.
 - Production installs use a release tag instead of moving `main`.
 - When this repository is listed on `skills.sh`, that page is a discovery entry. GitHub Releases provide reproducible pinned installs.
 
-## Repository layout
+## Repository Layout
 
 - `.agents/skills/realsee-panorama-to-vr-skill/`
-  The canonical skill source. Gemini CLI can discover it directly through the `.agents/skills` alias.
+  Skill source directory. Gemini CLI can discover it directly through the `.agents/skills` alias.
 - `.claude-plugin/realsee-panorama-to-vr-skill/`
-  Claude Code plugin wrapper that bundles the same skill for `--plugin-dir` usage.
+  Claude Code plugin directory for `--plugin-dir` usage.
 - `examples/manifest-input/`
   Public indoor panoramas plus a sample `manifest.json`.
 - `examples/SOURCES.md`
   Source pages and license notes for the public example dataset.
 - `scripts/install-codex-skill.mjs`
   Node.js installer for Codex local skill discovery.
-- `docs/capability-naming.md`
-  Naming rules for the official capability name versus developer-facing identifiers.
 
 ## Prerequisites
 
@@ -57,13 +55,13 @@ The repository toolchain uses Node.js in all three places:
   - `REALSEE_APP_SECRET`
   - `REALSEE_REGION=global|cn`
 
-If you do not have `REALSEE_APP_KEY` / `REALSEE_APP_SECRET` yet, guide by region:
+Credential registration entry points:
 
-- `REALSEE_REGION=cn`: register at `my.realsee.cn` or use `https://h5.realsee.com/vrapplink`
-- `REALSEE_REGION=global`: register at `my.realsee.ai` or use `https://h5.realsee.com/vrapplink`
-- Region not decided yet: use the unified link first, then confirm whether the account is `cn` or `global`
+- `REALSEE_REGION=cn`: register at [my.realsee.cn](https://my.realsee.cn/?utm_source=github) or use [h5.realsee.com/vrapplink](https://h5.realsee.com/vrapplink?utm_source=github)
+- `REALSEE_REGION=global`: register at [my.realsee.ai](https://my.realsee.ai/?utm_source=github) or use [h5.realsee.com/vrapplink](https://h5.realsee.com/vrapplink?utm_source=github)
+- Region not decided yet: use [h5.realsee.com/vrapplink](https://h5.realsee.com/vrapplink?utm_source=github) first, then confirm whether the account is `cn` or `global`
 
-After registration, email `developer@realsee.com` to request access to the official `全景图生成VR` API capability. Include your account region, `UserID`, and `IdentityID` in the request.
+API capability activation uses [developer@realsee.com](mailto:developer@realsee.com?subject=Panorama-to-VR%20API%20Capability%20Request&body=Account%20region%3A%20%0AUserID%3A%20%0AIdentityID%3A%20%0A). The request includes account region, `UserID`, and `IdentityID`.
 
 Install dependencies from the repository root:
 
@@ -71,24 +69,24 @@ Install dependencies from the repository root:
 npm install
 ```
 
-For a stable production install, clone a release tag instead of `main`:
+Pinned release install:
 
 ```bash
-VERSION=v0.1.0
+VERSION=v1.0.0
 git clone --branch "$VERSION" --depth 1 https://github.com/realsee-developer/realsee-panorama-to-vr-skill.git
 cd realsee-panorama-to-vr-skill
 npm install
 ```
 
-The canonical skill also includes its own [`package.json`](./.agents/skills/realsee-panorama-to-vr-skill/package.json) so hosts that consume the skill directory directly can install dependencies there if needed.
+The skill directory also includes its own [`package.json`](./.agents/skills/realsee-panorama-to-vr-skill/package.json).
 
-Copy the environment template if you want local `.env` loading:
+Local `.env` loading uses:
 
 ```bash
 cp .env.example .env
 ```
 
-## Quick start
+## Quick Start
 
 Run against the included example manifest and images:
 
@@ -102,7 +100,7 @@ npm run run -- \
 
 The bundled example data is a public CC0 interior panorama set from Wikimedia Commons, not customer data. See [examples/SOURCES.md](./examples/SOURCES.md).
 
-Run against an image directory only and let the runtime generate a manifest:
+Run against an image directory only:
 
 ```bash
 npm run run -- \
@@ -120,7 +118,7 @@ npm run run -- \
   --json
 ```
 
-For long-running tasks, start polling in the background and inspect it later:
+Background polling:
 
 ```bash
 npm run poll:bg -- \
@@ -139,24 +137,21 @@ The runtime writes one isolated working directory per task and always produces:
 
 `result.json` includes `status`, `project_name`, `task_code`, `project_id`, `vr_url`, and `workspace_dir`.
 
-## Host integration
+## Host Integration
 
 - Codex: [docs/codex.md](./docs/codex.md)
 - Claude Code: [docs/claude-plugin.md](./docs/claude-plugin.md)
 - Gemini CLI: [docs/gemini-cli.md](./docs/gemini-cli.md)
 - Release flow: [docs/releases.md](./docs/releases.md)
-- GitHub repository setup: [docs/github-repository-setup.md](./docs/github-repository-setup.md)
-
-The canonical skill id is `realsee-panorama-to-vr-skill` across Codex, Claude Code, and Gemini CLI. See [docs/capability-naming.md](./docs/capability-naming.md) for the naming map.
 
 ## Notes
 
 - This repository does **not** ship an MCP server.
 - This repository does **not** publish a standalone CLI package.
 - Claude integration in this repository uses the bundled plugin wrapper.
-- Gemini CLI users can consume the canonical skill directly from `.agents/skills`.
-- For Gemini CLI, use either workspace discovery or a global `skills link/install`, but not both at the same time.
+- Gemini CLI can load the skill directly from `.agents/skills`.
+- Gemini CLI uses either workspace discovery or a global `skills link/install`. Running both with the same skill name produces an override warning.
 
-## Repository trends
+## Repository Trends
 
-[![Star History Chart](https://api.star-history.com/svg?repos=realsee-developer/realsee-panorama-to-vr-skill&type=Date)](https://www.star-history.com/#realsee-developer/realsee-panorama-to-vr-skill&Date)
+[![Star History Chart](https://api.star-history.com/image?repos=realsee-developer/realsee-panorama-to-vr-skill&type=Date)](https://www.star-history.com/#realsee-developer/realsee-panorama-to-vr-skill&Date)

@@ -1,6 +1,6 @@
 {
   "name": "realsee-panorama-to-vr-skill-runtime",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "description": "Self-contained runtime dependencies for the realsee-panorama-to-vr-skill skill.",

@@ -35,7 +35,7 @@ body:
     id: commit
     attributes:
       label: Commit or release
-      placeholder: 7530984 or v0.1.0
+      placeholder: 7530984 or v1.0.0
   - type: textarea
     id: steps
     attributes:
