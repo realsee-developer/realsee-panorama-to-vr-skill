@@ -106,7 +106,7 @@ if (claudeMatches.length > 1) {
 }
 
 if (await pathExists(join(process.env.HOME ?? '.', '.gemini/skills/realsee-panorama-to-vr-skill')) && await pathExists(join(skillDir, 'SKILL.md'))) {
-  markWarning('Gemini global skill and workspace skill both exist; use only one discovery path')
+  markWarning('Gemini global skill and repository-local skill both exist; use only one discovery path')
 }
 
 if (claudeMatches.length > 0) {
@@ -137,7 +137,7 @@ if (geminiMatches.length > 0) {
   if (geminiHelp.status === 0) {
     markOk('gemini skills command available')
   } else {
-    markWarning('gemini installed but skills subcommand unavailable')
+    markWarning('gemini installed but skills subcommand unavailable; use the repository-local Gemini flow from docs/gemini-cli.md')
   }
 } else {
   markWarning('gemini: not installed')
