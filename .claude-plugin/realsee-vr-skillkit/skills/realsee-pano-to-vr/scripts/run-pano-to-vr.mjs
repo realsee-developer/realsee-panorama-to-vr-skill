@@ -48,6 +48,7 @@ async function persistFailureArtifacts(args, error) {
   const workspaceDir = await resolveFailureWorkspaceDir(args)
   await ensureWorkspace(workspaceDir)
 
+  // Keep any previously written context and only append the minimum failure snapshot.
   const currentState = await readState(workspaceDir)
   const nextState = await writeState(workspaceDir, {
     workspace_dir: workspaceDir,
@@ -190,6 +191,7 @@ main().catch(async (error) => {
   }
 
   try {
+    // Failure handling has to mirror the documented output contract for both fresh and resumed runs.
     result = await persistFailureArtifacts(args, error)
   } catch {
     // Ignore secondary write failures.

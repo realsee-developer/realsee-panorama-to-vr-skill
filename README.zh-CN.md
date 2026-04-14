@@ -1,6 +1,10 @@
-# Realsee Pano To VR
+# 全景图生成VR SkillKit
 
 这个仓库用于把一组本地全景图通过 Realsee OpenAPI 编排成可访问的 VR 空间，并以 **GitHub 可接入仓库** 的方式提供给外部使用。
+
+仓库对外的公开身份建议使用 `realsee-vr-skillkit`。同时，为了保持宿主侧触发稳定，canonical skill 名称继续保留为 `realsee-pano-to-vr`。
+
+正式产品能力名称统一为 `全景图生成VR`，官方英文名称统一为 `Panorama-to-VR`。代码、脚本、接口字段、宿主触发名继续保持英文，避免开发接口频繁漂移。
 
 它不是独立 `realsee-cli` 产品，而是一个共享技能仓库，首版覆盖：
 
@@ -10,18 +14,26 @@
 
 核心能力只有一套：位于 `.agents/skills/realsee-pano-to-vr/` 的 canonical skill，以及其中内置的 Node.js 编排运行时。
 
+仓库工具链也统一收敛到 Node.js：
+
+- 运行时入口使用 Node.js
+- 维护脚本使用 Node.js
+- CI 校验使用 Node.js
+
 ## 仓库结构
 
 - `.agents/skills/realsee-pano-to-vr/`
   canonical skill 源目录，Gemini CLI 可以直接通过 `.agents/skills` 发现它。
-- `.claude-plugin/realsee-pano-to-vr-agent-plugin/`
+- `.claude-plugin/realsee-vr-skillkit/`
   Claude Code plugin 包装层，便于 `--plugin-dir` 加载和后续发布。
 - `examples/manifest-input/`
   公开可分发的室内全景图样例和对应 `manifest.json`。
 - `examples/SOURCES.md`
   样例数据的来源页面和许可说明。
-- `scripts/install-codex-skill.sh`
+- `scripts/install-codex-skill.mjs`
   Codex 本地 skill 安装脚本。
+- `docs/capability-naming.md`
+  正式能力名和开发标识的命名约定。
 
 ## 前置要求
 
@@ -38,7 +50,7 @@
 - `REALSEE_REGION=global`：前往 `my.realsee.ai` 注册，或使用统一链接 `https://h5.realsee.com/vrapplink`
 - 还没确定账号可用区：先使用统一链接注册，再确认账号应归属 `cn` 还是 `global`
 
-完成注册后，使用账号的【账号可用区 / region】【如视 ID / UserID】【组织账号 / IdentityID】发送邮件到 `developer@realsee.com`，申请开通“全景图生成 VR”的接口能力。
+完成注册后，使用账号的【账号可用区 / region】【如视 ID / UserID】【组织账号 / IdentityID】发送邮件到 `developer@realsee.com`，申请开通“全景图生成VR”的接口能力。
 
 安装依赖：
 
@@ -89,11 +101,11 @@ npm run run -- \
 如果任务处理时间较长，可以把轮询放到后台：
 
 ```bash
-./scripts/start-background-poll.sh \
+npm run poll:bg -- \
   --workspace ./workspace \
   --task-code your_task_code
 
-./scripts/task-status.sh \
+npm run poll:status -- \
   --workspace ./workspace \
   --task-code your_task_code
 ```
@@ -110,6 +122,8 @@ npm run run -- \
 - Codex: [docs/codex.md](./docs/codex.md)
 - Claude Code: [docs/claude-plugin.md](./docs/claude-plugin.md)
 - Gemini CLI: [docs/gemini-cli.md](./docs/gemini-cli.md)
+
+其中 Codex 和 Gemini CLI 的 canonical skill 名称保持为 `realsee-pano-to-vr`，Claude Code 则通过 `realsee-vr-skillkit` 这个 plugin namespace 暴露同一套能力。详细约定见 [docs/capability-naming.md](./docs/capability-naming.md)。
 
 ## 说明
 

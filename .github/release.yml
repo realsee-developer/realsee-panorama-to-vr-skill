@@ -1,0 +1,22 @@
+changelog:
+  categories:
+    - title: Runtime
+      labels:
+        - runtime
+        - api
+    - title: Host Integrations
+      labels:
+        - codex
+        - claude
+        - gemini
+    - title: GitHub Repository
+      labels:
+        - github
+        - ci
+        - dependencies
+    - title: Documentation
+      labels:
+        - docs
+    - title: Other Changes
+      labels:
+        - "*"

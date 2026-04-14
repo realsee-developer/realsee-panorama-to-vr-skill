@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Panorama-to-VR API access request
+    url: https://h5.realsee.com/vrapplink
+    about: Register an account first, then email developer@realsee.com with your region, UserID, and IdentityID for API enablement.

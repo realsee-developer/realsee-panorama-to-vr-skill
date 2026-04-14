@@ -5,11 +5,11 @@
 Clone the repository, install dependencies, sync the bundled plugin skill, then start Claude Code with the local plugin directory:
 
 ```bash
-git clone <repo-url>
-cd realsee-pano-to-vr
+git clone https://github.com/realsee-developer/realsee-vr-skillkit.git
+cd realsee-vr-skillkit
 npm install
 npm run sync:claude-plugin
-claude --plugin-dir ./.claude-plugin/realsee-pano-to-vr-agent-plugin
+claude --plugin-dir ./.claude-plugin/realsee-vr-skillkit
 ```
 
 This uses Claude Code's documented `--plugin-dir` development flow.
@@ -18,8 +18,8 @@ Keep exactly one active `claude` installation on your machine. Do not keep both 
 
 ## Plugin behavior
 
-- Plugin root: `.claude-plugin/realsee-pano-to-vr-agent-plugin`
-- Namespaced skill: `/realsee-pano-to-vr:realsee-pano-to-vr`
+- Plugin root: `.claude-plugin/realsee-vr-skillkit`
+- Namespaced skill: `/realsee-vr-skillkit:realsee-pano-to-vr`
 - Credentials come from `userConfig`
 - Plugin subprocesses also receive:
   - `CLAUDE_PLUGIN_OPTION_REALSEE_APP_KEY`
@@ -34,7 +34,7 @@ If you do not have Realsee credentials yet:
 - `REALSEE_REGION=global`: register at `my.realsee.ai` or use `https://h5.realsee.com/vrapplink`
 - Unknown region: use the unified link first, then confirm whether the account should be `cn` or `global`
 
-After that, email `developer@realsee.com` to request the panorama-to-VR API capability. Include your account region, `UserID`, and `IdentityID`.
+After that, email `developer@realsee.com` to request the official `全景图生成VR` API capability. Include your account region, `UserID`, and `IdentityID`.
 
 ## Fallback for older Claude Code builds
 
@@ -44,18 +44,18 @@ If your local `claude plugin validate` build does not yet recognize `userConfig`
 export REALSEE_APP_KEY=...
 export REALSEE_APP_SECRET=...
 export REALSEE_REGION=global
-claude --plugin-dir ./.claude-plugin/realsee-pano-to-vr-agent-plugin
+claude --plugin-dir ./.claude-plugin/realsee-vr-skillkit
 ```
 
 ## Typical prompts
 
-- `Use /realsee-pano-to-vr:realsee-pano-to-vr on ./examples/manifest-input and show the task_code and vr_url.`
-- `Use /realsee-pano-to-vr:realsee-pano-to-vr on /data/panos and auto-generate the manifest.`
-- `Use /realsee-pano-to-vr:realsee-pano-to-vr to resume task_code abc123 in ./workspace.`
+- `Use /realsee-vr-skillkit:realsee-pano-to-vr on ./examples/manifest-input and show the task_code and vr_url.`
+- `Use /realsee-vr-skillkit:realsee-pano-to-vr on /data/panos and auto-generate the manifest.`
+- `Use /realsee-vr-skillkit:realsee-pano-to-vr to resume task_code abc123 in ./workspace.`
 
 For manual shell recovery outside Claude, the repository also includes:
 
 ```bash
-./scripts/start-background-poll.sh --workspace ./workspace --task-code abc123
-./scripts/task-status.sh --workspace ./workspace --task-code abc123
+npm run poll:bg -- --workspace ./workspace --task-code abc123
+npm run poll:status -- --workspace ./workspace --task-code abc123
 ```

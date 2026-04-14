@@ -3,7 +3,11 @@ name: realsee-pano-to-vr
 description: Turn a local panorama set into a Realsee VR space through the Realsee Open Platform workflow. Use when the user wants to submit equirectangular panorama images, validate or generate a manifest, upload a ZIP package, poll the Realsee task, resume polling with a known task_code, or retrieve the final VR URL from local files.
 ---
 
-# Realsee Pano To VR
+# 全景图生成VR
+
+Official capability names: `全景图生成VR` / `Panorama-to-VR`
+
+Developer-facing skill id: `realsee-pano-to-vr`
 
 Use this skill to run the bundled Realsee panorama-to-VR workflow from local files.
 

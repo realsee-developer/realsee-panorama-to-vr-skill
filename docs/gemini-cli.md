@@ -5,8 +5,8 @@
 Clone the repository and install dependencies:
 
 ```bash
-git clone <repo-url>
-cd realsee-pano-to-vr
+git clone https://github.com/realsee-developer/realsee-vr-skillkit.git
+cd realsee-vr-skillkit
 npm install
 ```
 
@@ -34,7 +34,7 @@ gemini skills link ./.agents/skills/realsee-pano-to-vr
 You can also install the repository directly from Git:
 
 ```bash
-gemini skills install https://github.com/<org>/<repo>.git
+gemini skills install https://github.com/realsee-developer/realsee-vr-skillkit.git
 ```
 
 ## Credentials
@@ -53,7 +53,7 @@ If you do not have credentials yet:
 - `REALSEE_REGION=global`: register at `my.realsee.ai` or use `https://h5.realsee.com/vrapplink`
 - Unknown region: use the unified link first, then confirm whether the account should be `cn` or `global`
 
-After that, email `developer@realsee.com` to request the panorama-to-VR API capability. Include your account region, `UserID`, and `IdentityID`.
+After that, email `developer@realsee.com` to request the official `全景图生成VR` API capability. Include your account region, `UserID`, and `IdentityID`.
 
 ## Typical prompts
 
@@ -64,6 +64,6 @@ After that, email `developer@realsee.com` to request the panorama-to-VR API capa
 For shell-level background polling after a task is already submitted:
 
 ```bash
-./scripts/start-background-poll.sh --workspace ./workspace --task-code abc123
-./scripts/task-status.sh --workspace ./workspace --task-code abc123
+npm run poll:bg -- --workspace ./workspace --task-code abc123
+npm run poll:status -- --workspace ./workspace --task-code abc123
 ```

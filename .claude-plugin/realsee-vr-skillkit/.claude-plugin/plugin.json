@@ -1,10 +1,10 @@
 {
-  "name": "realsee-pano-to-vr",
+  "name": "realsee-vr-skillkit",
   "version": "0.1.0",
-  "description": "Turn local panorama sets into Realsee VR spaces with a bundled skill and runtime.",
+  "description": "Bundle the Panorama-to-VR skill for the official 全景图生成VR capability.",
   "skills": "./skills",
-  "repository": "https://github.com/<org>/realsee-pano-to-vr",
-  "homepage": "https://github.com/<org>/realsee-pano-to-vr",
+  "repository": "https://github.com/realsee-developer/realsee-vr-skillkit",
+  "homepage": "https://github.com/realsee-developer/realsee-vr-skillkit",
   "keywords": [
     "realsee",
     "vr",

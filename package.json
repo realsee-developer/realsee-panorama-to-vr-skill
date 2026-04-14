@@ -1,17 +1,21 @@
 {
-  "name": "realsee-pano-to-vr",
+  "name": "realsee-vr-skillkit",
   "version": "0.1.0",
   "private": true,
-  "description": "Public GitHub integration repository for turning panoramas into Realsee VR spaces from Codex, Claude Code, and Gemini CLI.",
+  "description": "GitHub-ready multi-host skill repository for turning panoramas into Realsee VR spaces from Codex, Claude Code, and Gemini CLI.",
   "type": "module",
   "scripts": {
     "run": "node ./.agents/skills/realsee-pano-to-vr/scripts/run-pano-to-vr.mjs",
-    "setup:local": "./scripts/bootstrap-local-env.sh",
-    "doctor:local": "./scripts/doctor-local-env.sh",
-    "poll:bg": "./scripts/start-background-poll.sh",
-    "poll:status": "./scripts/task-status.sh",
+    "setup:local": "node ./scripts/bootstrap-local-env.mjs",
+    "doctor:local": "node ./scripts/doctor-local-env.mjs",
+    "install:codex-skill": "node ./scripts/install-codex-skill.mjs",
+    "poll:bg": "node ./scripts/start-background-poll.mjs",
+    "poll:status": "node ./scripts/task-status.mjs",
     "sync:claude-plugin": "node ./scripts/sync-claude-plugin.mjs",
-    "validate:skill": "./scripts/validate-skill.sh"
+    "validate:skill": "node ./scripts/validate-skill.mjs ./.agents/skills/realsee-pano-to-vr",
+    "check:claude-sync": "node ./scripts/check-claude-sync.mjs",
+    "check:smoke": "node ./scripts/ci-smoke.mjs",
+    "ci": "node ./scripts/ci-verify.mjs"
   },
   "dependencies": {
     "@realsee/universal-uploader": "^0.0.10",

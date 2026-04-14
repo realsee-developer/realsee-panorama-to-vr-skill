@@ -8,7 +8,7 @@
 
 ## Claude Code
 
-- Use the bundled plugin under `.claude-plugin/realsee-pano-to-vr-agent-plugin`
+- Use the bundled plugin under `.claude-plugin/realsee-vr-skillkit`
 - Plugin `userConfig` provides credentials
 - Claude exposes those values to subprocesses as `CLAUDE_PLUGIN_OPTION_*`
 

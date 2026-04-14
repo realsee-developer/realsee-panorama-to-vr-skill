@@ -5,10 +5,10 @@
 Clone this repository, install dependencies, then link the canonical skill into your Codex skills directory:
 
 ```bash
-git clone <repo-url>
-cd realsee-pano-to-vr
+git clone https://github.com/realsee-developer/realsee-vr-skillkit.git
+cd realsee-vr-skillkit
 npm install
-./scripts/install-codex-skill.sh
+npm run install:codex-skill
 ```
 
 If you prefer to install dependencies inside the skill itself instead of at the repository root:
@@ -38,7 +38,7 @@ If you do not have credentials yet:
 - `REALSEE_REGION=global`: register at `my.realsee.ai` or use `https://h5.realsee.com/vrapplink`
 - Unknown region: use the unified link first, then confirm whether the account should be `cn` or `global`
 
-After that, email `developer@realsee.com` to request the panorama-to-VR API capability. Include your account region, `UserID`, and `IdentityID`.
+After that, email `developer@realsee.com` to request the official `全景图生成VR` API capability. Include your account region, `UserID`, and `IdentityID`.
 
 ## Typical prompts
 
@@ -59,7 +59,7 @@ node ./.agents/skills/realsee-pano-to-vr/scripts/run-pano-to-vr.mjs \
 For a long-running task that you do not want to keep in the foreground:
 
 ```bash
-./scripts/start-background-poll.sh \
+npm run poll:bg -- \
   --workspace ./workspace \
   --task-code your_task_code
 ```
