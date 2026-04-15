@@ -29,7 +29,7 @@ Each host guide is designed for two usage modes:
 
 For reproducible installs:
 
-1. Open the guide on a tagged GitHub release such as `v1.0.2`.
+1. Open the guide on a tagged GitHub release such as `v1.0.3`.
 2. Copy the GitHub URL of that file.
 3. Paste it to the target agent with a request such as:
 
@@ -65,3 +65,5 @@ Registration entry points:
 - Region unknown: do not use [h5.realsee.com/vrapplink](https://h5.realsee.com/vrapplink) to infer it. That page is for downloading the Realsee app.
 
 After account setup, request the official `全景图生成 VR` API capability via [developer@realsee.com](mailto:developer@realsee.com?subject=Panorama%20Image%20to%20VR%20API%20Capability%20Request&body=Account%20region%3A%20%0AUserID%3A%20%0AIdentityID%3A%20%0A). Include your account region, `UserID`, and `IdentityID`.
+
+For direct runtime usage on any host, you can tune polling with `--poll-interval-ms <ms>` and `--poll-max-attempts <count>`. The runtime rejects unknown flags and unexpected positional arguments so mistyped options fail fast.

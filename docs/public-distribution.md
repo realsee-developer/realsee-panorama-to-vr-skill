@@ -35,7 +35,7 @@ These are the main files that external users and agents rely on:
 - `docs/claude-plugin.md`
 - `docs/gemini-cli.md`
 
-For production installs, prefer tagged GitHub URLs such as `.../blob/v1.0.2/docs/codex.md` instead of `.../blob/main/docs/codex.md`.
+For production installs, prefer tagged GitHub URLs such as `.../blob/v1.0.3/docs/codex.md` instead of `.../blob/main/docs/codex.md`.
 
 ## Public Listing Readiness Checklist
 
@@ -43,7 +43,7 @@ Before listing the repository on discovery surfaces:
 
 1. Keep the repository public and cloneable from GitHub.
 2. Keep install guides self-contained enough for an agent to execute from the shared URL alone.
-3. Publish immutable release tags such as `v1.0.2`.
+3. Publish immutable release tags such as `v1.0.3`.
 4. Keep root docs, host guides, and canonical skill docs aligned.
 5. Run `npm run ci` before tagging a release.
 6. Run `npm run sync:claude-plugin` after canonical skill changes.
@@ -83,8 +83,8 @@ npm install
 npm run sync:claude-plugin
 npm run ci
 git status --short
-git tag -a v1.0.2 -m "Release v1.0.2"
-git push origin v1.0.2
+git tag -a v1.0.3 -m "Release v1.0.3"
+git push origin v1.0.3
 ```
 
 Do not retag an existing published version.

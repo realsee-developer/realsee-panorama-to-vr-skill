@@ -5,7 +5,7 @@ This repository uses Git tags and GitHub Releases as the stable distribution cha
 ## Policy
 
 - `main` is the integration branch for ongoing development.
-- Stable versions are immutable tags such as `v1.0.2`.
+- Stable versions are immutable tags such as `v1.0.3`.
 - External installs should use a release tag instead of following `main`.
 - Public docs must remain aligned with the tagged artifact.
 
@@ -31,13 +31,13 @@ git status --short
 4. Create an annotated tag:
 
 ```bash
-git tag -a v1.0.2 -m "Release v1.0.2"
+git tag -a v1.0.3 -m "Release v1.0.3"
 ```
 
 5. Push the tag:
 
 ```bash
-git push origin v1.0.2
+git push origin v1.0.3
 ```
 
 6. GitHub Actions re-run validation and create the GitHub Release automatically.
@@ -47,7 +47,7 @@ git push origin v1.0.2
 Clone a specific release tag:
 
 ```bash
-VERSION=v1.0.2
+VERSION=v1.0.3
 git clone --branch "$VERSION" --depth 1 https://github.com/realsee-developer/realsee-panorama-to-vr-skill.git
 cd realsee-panorama-to-vr-skill
 npm install

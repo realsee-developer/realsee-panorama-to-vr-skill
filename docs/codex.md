@@ -32,7 +32,7 @@ and report any missing credentials.
 ### Stable release install
 
 ```bash
-VERSION=v1.0.2
+VERSION=v1.0.3
 git clone --branch "$VERSION" --depth 1 https://github.com/realsee-developer/realsee-panorama-to-vr-skill.git
 cd realsee-panorama-to-vr-skill
 npm install
@@ -107,7 +107,14 @@ For long-running tasks you do not want to keep in the foreground:
 npm run poll:bg -- --workspace ./workspace --task-code your_task_code
 ```
 
+Optional direct-runtime polling controls:
+
+- `--poll-interval-ms <ms>`
+- `--poll-max-attempts <count>`
+
+Unknown flags and unexpected positional arguments are rejected immediately.
+
 ## Release Policy
 
 - `main` is the integration branch.
-- Stable Codex installs should use a GitHub Release tag such as `v1.0.2`.
+- Stable Codex installs should use a GitHub Release tag such as `v1.0.3`.
