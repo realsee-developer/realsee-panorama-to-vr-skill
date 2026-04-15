@@ -36,3 +36,19 @@ Behavior:
 - Normalize matched images to `.jpg` in the workspace.
 
 Use this mode when the user already controls naming, ordering, or floor mapping.
+
+## 3. Resume mode
+
+Arguments:
+
+```bash
+--workspace /abs/path/to/workspace --task-code your_task_code
+```
+
+Behavior:
+
+- Reuse the existing workspace root
+- Skip manifest preparation and upload
+- Continue polling until the remote task reaches a terminal state
+
+Use this mode when the first run already submitted the task and only the polling step needs to continue.

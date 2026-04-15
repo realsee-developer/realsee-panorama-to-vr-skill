@@ -1,47 +1,67 @@
 # Public Distribution
 
-Use this guide when you want the repository to be installable from GitHub, shareable with agents via GitHub file links, and listable on public discovery pages such as `skills.sh`.
+Use this guide when the repository needs to be:
+
+- installable directly from GitHub
+- shareable with humans or AI agents through GitHub file URLs
+- listable on public discovery pages such as `skills.sh`
+
+## Recommended Public Install
+
+The recommended public install command is:
+
+```bash
+npx skills add realsee-developer/realsee-panorama-to-vr-skill
+```
 
 ## Canonical Distribution Model
 
-This repository uses GitHub as the source of truth:
+GitHub is the source of truth:
 
-- `main` is the integration branch for ongoing changes.
-- Immutable Git tags and GitHub Releases are the stable install target.
-- Host-specific install guides live in `docs/` and can be shared as GitHub file URLs.
+- `main` is the integration branch.
+- Immutable Git tags and GitHub Releases are the stable install targets.
+- Host-specific install guides live in `docs/`.
 - The canonical skill source lives under `.agents/skills/realsee-panorama-to-vr-skill/`.
-- The Claude plugin copy lives under `.claude-plugin/realsee-panorama-to-vr-skill/` and must be kept in sync from the canonical skill.
+- The Claude plugin copy lives under `.claude-plugin/realsee-panorama-to-vr-skill/` and must be regenerated from the canonical skill.
 
-## Shareable GitHub Entry Points
+## Public Entry Points To Keep Healthy
 
-These are the files you can link directly when handing the install to an agent:
+These are the main files that external users and agents rely on:
 
+- `README.md`
+- `README.zh-CN.md`
+- `docs/install-guides.md`
 - `docs/codex.md`
 - `docs/claude-plugin.md`
 - `docs/gemini-cli.md`
-- `docs/install-guides.md`
 
-Prefer tagged GitHub URLs such as `.../blob/v1.0.1/docs/codex.md` instead of `.../blob/main/docs/codex.md` for production installs.
+For production installs, prefer tagged GitHub URLs such as `.../blob/v1.0.2/docs/codex.md` instead of `.../blob/main/docs/codex.md`.
 
-## Public Listing Readiness
+## Public Listing Readiness Checklist
 
-Before trying to list the repository on discovery pages:
+Before listing the repository on discovery surfaces:
 
 1. Keep the repository public and cloneable from GitHub.
-2. Keep the install guides self-contained so an agent can execute them from the shared file URL.
-3. Publish immutable release tags such as `v1.0.1`.
-4. Keep `README.md`, `README.zh-CN.md`, and the host guides aligned.
+2. Keep install guides self-contained enough for an agent to execute from the shared URL alone.
+3. Publish immutable release tags such as `v1.0.2`.
+4. Keep root docs, host guides, and canonical skill docs aligned.
 5. Run `npm run ci` before tagging a release.
-6. Sync the Claude plugin copy with `npm run sync:claude-plugin` after canonical skill changes.
+6. Run `npm run sync:claude-plugin` after canonical skill changes.
 
 ## `skills.sh`
 
-`skills.sh` is a discovery page, not the reproducible install source. The repository should therefore keep these pieces healthy:
+`skills.sh` is a discovery surface, not the reproducible install source. Keep these artifacts healthy:
 
 - a public GitHub repository
 - a canonical `SKILL.md`
-- a stable tagged release flow
-- direct GitHub guide links for human or agent-driven installation
+- stable tagged releases
+- direct GitHub guide links for agent-driven installs
+
+Recommended public install command:
+
+```bash
+npx skills add realsee-developer/realsee-panorama-to-vr-skill
+```
 
 Pinned installs should still use Git tags and GitHub Releases.
 
@@ -52,18 +72,19 @@ For Claude Code, the public install surface is the plugin directory:
 - `.claude-plugin/realsee-panorama-to-vr-skill/.claude-plugin/plugin.json`
 - `.claude-plugin/realsee-panorama-to-vr-skill/skills/realsee-panorama-to-vr-skill/`
 
-Use [claude-plugin.md](./claude-plugin.md) as the shareable GitHub file for plugin installation guidance.
+Use [docs/claude-plugin.md](./claude-plugin.md) as the shareable GitHub guide for Claude installs.
 
-## Release Checklist
+## Maintainer Release Checklist
 
 Run these steps from the repository root:
 
 ```bash
 npm install
+npm run sync:claude-plugin
 npm run ci
 git status --short
-git tag -a v1.0.1 -m "Release v1.0.1"
-git push origin v1.0.1
+git tag -a v1.0.2 -m "Release v1.0.2"
+git push origin v1.0.2
 ```
 
 Do not retag an existing published version.

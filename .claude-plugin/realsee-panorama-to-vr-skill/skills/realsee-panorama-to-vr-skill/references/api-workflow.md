@@ -18,3 +18,4 @@ The bundled runtime preserves the production OpenAPI orchestration shape:
 - Refresh access tokens automatically during long polls
 - Keep each task in its own workspace directory
 - Support `--task-code` to resume polling without rebuilding or re-uploading
+- Preserve the documented `result.json` contract even when the workflow fails
