@@ -28,6 +28,8 @@ Use this skill to run the bundled Realsee panorama-image-to-VR workflow from loc
 4. Detect the input mode:
    - `--images-dir <dir>` only: generate a manifest automatically
    - `--manifest <path> --images-dir <dir>`: validate the provided manifest against local images
+   - Optional polling overrides: `--poll-interval-ms <ms>` and `--poll-max-attempts <count>`
+   - Unknown flags and unexpected positional arguments should fail immediately instead of being ignored
 5. Resolve the installed skill root first. Use the directory that contains this `SKILL.md`, not the caller's current working directory.
 6. Run the bundled Node entrypoint from that installed skill path:
 

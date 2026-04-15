@@ -137,6 +137,13 @@ npm run poll:bg -- --workspace ./workspace --task-code your_task_code
 npm run poll:status -- --workspace ./workspace --task-code your_task_code
 ```
 
+Optional polling controls for direct runtime usage:
+
+- `--poll-interval-ms <ms>`
+- `--poll-max-attempts <count>`
+
+The runtime rejects unknown flags and unexpected positional arguments so typoed options fail fast.
+
 ## Output Contract
 
 Each run gets its own working directory under `--workspace` and writes:
@@ -173,7 +180,7 @@ Each run gets its own working directory under `--workspace` and writes:
 ## Release and Distribution
 
 - `main` is the integration branch.
-- Stable installs should use Git tags and GitHub Releases such as `v1.0.2`.
+- Stable installs should use Git tags and GitHub Releases such as `v1.0.3`.
 - `skills.sh` is a discovery surface. GitHub Releases remain the reproducible install source.
 
 Recommended public install:

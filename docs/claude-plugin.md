@@ -32,7 +32,7 @@ and report the final plugin path plus any missing credentials.
 ### Stable release install
 
 ```bash
-VERSION=v1.0.2
+VERSION=v1.0.3
 git clone --branch "$VERSION" --depth 1 https://github.com/realsee-developer/realsee-panorama-to-vr-skill.git
 cd realsee-panorama-to-vr-skill
 npm install
@@ -110,7 +110,14 @@ npm run poll:bg -- --workspace ./workspace --task-code abc123
 npm run poll:status -- --workspace ./workspace --task-code abc123
 ```
 
+Optional direct-runtime polling controls:
+
+- `--poll-interval-ms <ms>`
+- `--poll-max-attempts <count>`
+
+Unknown flags and unexpected positional arguments are rejected immediately.
+
 ## Release Policy
 
 - `main` is the integration branch.
-- Stable Claude plugin installs should use a GitHub Release tag such as `v1.0.2`.
+- Stable Claude plugin installs should use a GitHub Release tag such as `v1.0.3`.

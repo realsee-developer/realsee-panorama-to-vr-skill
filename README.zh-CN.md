@@ -137,6 +137,13 @@ npm run poll:bg -- --workspace ./workspace --task-code your_task_code
 npm run poll:status -- --workspace ./workspace --task-code your_task_code
 ```
 
+直接运行时还支持可选轮询参数：
+
+- `--poll-interval-ms <ms>`
+- `--poll-max-attempts <count>`
+
+运行时会拒绝未知 flag 和意外的位置参数，避免因为命令拼写错误而静默回退到默认行为。
+
 ## 输出约定
 
 每次运行都会在 `--workspace` 下创建独立工作目录，并产出：
@@ -173,7 +180,7 @@ npm run poll:status -- --workspace ./workspace --task-code your_task_code
 ## 发布与分发
 
 - `main` 是持续开发集成分支。
-- 稳定安装应固定到 Git tag 或 GitHub Release，例如 `v1.0.2`。
+- 稳定安装应固定到 Git tag 或 GitHub Release，例如 `v1.0.3`。
 - `skills.sh` 负责发现，GitHub Release 仍然是可复现安装来源。
 
 推荐公开安装命令：

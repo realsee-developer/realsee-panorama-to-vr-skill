@@ -1,14 +1,16 @@
 #!/usr/bin/env node
 import assert from 'node:assert/strict'
 import { spawnSync } from 'node:child_process'
-import { mkdtemp, readFile, readdir, realpath, rm } from 'node:fs/promises'
+import { mkdtemp, mkdir, readFile, readdir, realpath, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { unzipSync } from 'fflate'
 import { getAccessToken } from '../.agents/skills/realsee-panorama-to-vr-skill/scripts/lib/api.mjs'
 import { createUploadZip } from '../.agents/skills/realsee-panorama-to-vr-skill/scripts/lib/archive.mjs'
 import { assertValidArgs, parseArgs } from '../.agents/skills/realsee-panorama-to-vr-skill/scripts/lib/args.mjs'
 import { prepareInput } from '../.agents/skills/realsee-panorama-to-vr-skill/scripts/lib/input.mjs'
+import { compareDirectoryTrees } from '../scripts/lib/compare-directory-trees.mjs'
 
 const rootDir = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const runtimeEntry = resolve(rootDir, '.agents/skills/realsee-panorama-to-vr-skill/scripts/run-panorama-to-vr.mjs')
@@ -67,10 +69,16 @@ async function runPublicExampleSmoke(tempRoot) {
   // This mirrors the local packaging path without needing live credentials or network access.
   await createUploadZip(workspaceDir, prepared.manifest)
   const state = await readJson(join(workspaceDir, 'state.json'))
+  const archiveEntries = unzipSync(new Uint8Array(await readFile(join(workspaceDir, 'upload.zip'))))
 
   assert.equal(prepared.inputMode, 'manifest', 'example input mode should be manifest')
   assert.equal(prepared.manifest.scan_list.length, 5, 'example manifest should contain 5 scans')
   assert.equal(state.scan_count, 5, 'state scan_count should be 5')
+  assert.equal(state.zip_size_bytes, (await readFile(join(workspaceDir, 'upload.zip'))).byteLength, 'state zip_size_bytes should match archive size')
+  assert.ok(archiveEntries['manifest.json'], 'archive should include manifest.json')
+  for (const item of prepared.manifest.scan_list) {
+    assert.ok(archiveEntries[`images/${item.id}.jpg`], `archive should include images/${item.id}.jpg`)
+  }
 }
 
 async function runDefaultWorkspaceFailureSmoke(tempRoot) {
@@ -137,6 +145,91 @@ function runMissingPollValueValidationSmoke() {
     /`--poll-max-attempts` requires a value\./,
     'missing --poll-max-attempts value should be rejected',
   )
+
+  assert.throws(
+    () => assertValidArgs(parseArgs(['--images-dir', exampleImages, '--workspce', '/tmp/typo'])),
+    /Unknown argument: --workspce/,
+    'unknown long flags should be rejected',
+  )
+
+  assert.throws(
+    () => assertValidArgs(parseArgs(['--images-dir', exampleImages, 'extra-positional'])),
+    /Unexpected positional argument: extra-positional/,
+    'unexpected positional arguments should be rejected',
+  )
+}
+
+async function runCompareDirectoryTreesSmoke(tempRoot) {
+  const leftDir = join(tempRoot, 'compare-left')
+  const rightDir = join(tempRoot, 'compare-right')
+  await mkdir(join(leftDir, 'nested'), { recursive: true })
+  await mkdir(join(rightDir, 'nested'), { recursive: true })
+
+  await writeFile(join(leftDir, 'same.txt'), 'same\n', 'utf-8')
+  await writeFile(join(rightDir, 'same.txt'), 'same\n', 'utf-8')
+  await writeFile(join(leftDir, 'nested', 'file.txt'), 'nested\n', 'utf-8')
+  await writeFile(join(rightDir, 'nested', 'file.txt'), 'nested\n', 'utf-8')
+
+  await compareDirectoryTrees(leftDir, rightDir)
+
+  await writeFile(join(rightDir, 'nested', 'file.txt'), 'drift\n', 'utf-8')
+  await assert.rejects(
+    () => compareDirectoryTrees(leftDir, rightDir),
+    /differs for nested\/file.txt/,
+    'directory compare should reject content drift',
+  )
+
+  await writeFile(join(rightDir, 'nested', 'file.txt'), 'nested\n', 'utf-8')
+  await writeFile(join(rightDir, 'extra.txt'), 'extra\n', 'utf-8')
+  await assert.rejects(
+    () => compareDirectoryTrees(leftDir, rightDir),
+    /file list differs/,
+    'directory compare should reject file list drift',
+  )
+}
+
+async function runLargeArchiveSmoke(tempRoot) {
+  const workspaceDir = join(tempRoot, 'large-archive')
+  const imagesDir = join(tempRoot, 'large-images')
+  await mkdir(imagesDir, { recursive: true })
+
+  const scanList = []
+  for (let index = 0; index < 4; index += 1) {
+    const id = `IMG_SYNTH_${index}`
+    scanList.push({ id, floor: 0 })
+    await writeFile(join(imagesDir, `${id}.jpg`), Buffer.alloc(512 * 1024, index), 'binary')
+  }
+
+  const manifest = {
+    version: '1.0',
+    project_name: 'synthetic-large-archive',
+    floor_map: { '0': 0 },
+    scan_list: scanList,
+  }
+
+  await mkdir(join(workspaceDir, 'images'), { recursive: true })
+  for (const item of scanList) {
+    await writeFile(
+      join(workspaceDir, 'images', `${item.id}.jpg`),
+      await readFile(join(imagesDir, `${item.id}.jpg`)),
+    )
+  }
+
+  await createUploadZip(workspaceDir, manifest)
+
+  const archiveEntries = unzipSync(new Uint8Array(await readFile(join(workspaceDir, 'upload.zip'))))
+  assert.ok(archiveEntries['manifest.json'], 'synthetic archive should include manifest.json')
+  assert.equal(Object.keys(archiveEntries).filter((key) => key.startsWith('images/')).length, scanList.length, 'synthetic archive should include every image')
+
+  const archiveSource = await readFile(resolve(rootDir, '.agents/skills/realsee-panorama-to-vr-skill/scripts/lib/archive.mjs'), 'utf-8')
+  assert.match(archiveSource, /\bnew Zip\b/, 'archive implementation should use fflate Zip streaming API')
+  assert.match(archiveSource, /\bcreateReadStream\b/, 'archive implementation should stream image reads from disk')
+}
+
+async function runIssueTemplateSmoke() {
+  const configText = await readFile(resolve(rootDir, '.github/ISSUE_TEMPLATE/config.yml'), 'utf-8')
+  assert.doesNotMatch(configText, /h5\.realsee\.com\/vrapplink/, 'issue template should not link to the app download page')
+  assert.match(configText, /mailto:developer@realsee\.com/, 'issue template should point to the capability request email')
 }
 
 async function runHttpErrorRedactionSmoke(tempRoot) {
@@ -178,6 +271,9 @@ const tempRoot = await mkdtemp(join(tmpdir(), 'realsee-panorama-to-vr-skill-'))
 try {
   runMissingPollValueValidationSmoke()
   await runPublicExampleSmoke(tempRoot)
+  await runCompareDirectoryTreesSmoke(tempRoot)
+  await runLargeArchiveSmoke(tempRoot)
+  await runIssueTemplateSmoke()
   await runHttpErrorRedactionSmoke(tempRoot)
   await runDefaultWorkspaceFailureSmoke(tempRoot)
   await runCreatedRunFailureSmoke(tempRoot)
