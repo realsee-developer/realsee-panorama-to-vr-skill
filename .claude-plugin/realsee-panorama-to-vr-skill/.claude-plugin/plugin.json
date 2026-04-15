@@ -1,7 +1,7 @@
 {
   "name": "realsee-panorama-to-vr-skill",
-  "version": "1.0.1",
-  "description": "Bundle the Panorama-to-VR skill for the official 全景图生成VR capability.",
+  "version": "1.0.2",
+  "description": "Bundle the panorama-image-to-VR skill for the official 全景图生成 VR capability.",
   "skills": "./skills",
   "repository": "https://github.com/realsee-developer/realsee-panorama-to-vr-skill",
   "homepage": "https://github.com/realsee-developer/realsee-panorama-to-vr-skill",

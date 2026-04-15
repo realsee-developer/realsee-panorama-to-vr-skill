@@ -1,25 +1,33 @@
 # Security Policy
 
-## Reporting a vulnerability
+## Report Security Issues Privately
 
 Do not open a public GitHub issue for:
 
 - credential leaks
 - private panorama data exposure
-- access control problems
-- security vulnerabilities in the upload or polling workflow
+- access-control problems
+- vulnerabilities in upload, polling, or result handling
 
-Report security issues to:
+Send security reports to:
 
 - `developer@realsee.com`
 
 Include:
 
-- affected version or commit
+- affected version, tag, or commit
 - reproduction steps
-- impact
-- whether private data or credentials may have been exposed
+- expected impact
+- whether credentials, private panoramas, or workspace artifacts may have been exposed
 
-## Sensitive data handling
+## Sensitive Data Rules
 
-Never include real customer panoramas, real `APP_KEY` / `APP_SECRET`, access tokens, or private workspace artifacts in issues, pull requests, or logs.
+Never include these in issues, pull requests, comments, screenshots, or logs:
+
+- real customer panoramas
+- real `REALSEE_APP_KEY` / `REALSEE_APP_SECRET`
+- access tokens
+- private task artifacts
+- raw workspace directories from customer jobs
+
+If you accidentally expose anything sensitive, stop using the public thread and report it by email immediately.

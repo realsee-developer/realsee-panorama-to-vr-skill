@@ -14,7 +14,7 @@ Fix:
 - If `REALSEE_REGION=cn`, register at [my.realsee.cn](https://my.realsee.cn/?utm_source=github)
 - If `REALSEE_REGION=global`, register at [my.realsee.ai](https://my.realsee.ai/?utm_source=github)
 - If the region is not known yet, do not use [h5.realsee.com/vrapplink](https://h5.realsee.com/vrapplink) to infer it. That page is for downloading the Realsee app. Confirm the account region with the account owner or Realsee support first.
-- Then email [developer@realsee.com](mailto:developer@realsee.com?subject=Panorama-to-VR%20API%20Capability%20Request&body=Account%20region%3A%20%0AUserID%3A%20%0AIdentityID%3A%20%0A) to request the official `Panorama-to-VR` API capability
+- Then email [developer@realsee.com](mailto:developer@realsee.com?subject=Panorama%20Image%20to%20VR%20API%20Capability%20Request&body=Account%20region%3A%20%0AUserID%3A%20%0AIdentityID%3A%20%0A) to request the official `全景图生成 VR` API capability
 - Include your account region, `UserID`, and `IdentityID` in the request email
 
 ## Invalid region
@@ -49,3 +49,16 @@ node ./.agents/skills/realsee-panorama-to-vr-skill/scripts/run-panorama-to-vr.mj
 ```
 
 This skips manifest preparation and upload, then resumes polling.
+
+## Install path confusion
+
+Symptoms:
+
+- the host cannot find `realsee-panorama-to-vr-skill`
+- the command exists in one host but not another
+
+Fix:
+
+- Codex: verify the symlink under `$CODEX_HOME/skills`
+- Claude Code: verify the plugin directory and namespaced skill
+- Gemini CLI: point the host at the canonical `SKILL.md` or remove the conflicting global link

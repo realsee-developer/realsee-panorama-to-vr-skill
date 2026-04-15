@@ -1,7 +1,7 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "全景转 VR",
+    "title": "全景图生成 VR",
     "description": "",
     "version": "1.0.0"
   },

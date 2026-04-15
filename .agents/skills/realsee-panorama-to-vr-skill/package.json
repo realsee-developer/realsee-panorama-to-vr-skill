@@ -1,9 +1,9 @@
 {
   "name": "realsee-panorama-to-vr-skill-runtime",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "type": "module",
-  "description": "Self-contained runtime dependencies for the realsee-panorama-to-vr-skill skill.",
+  "description": "Self-contained runtime dependencies for the panorama-image-to-VR skill.",
   "engines": {
     "node": ">=22",
     "npm": ">=10"

@@ -1,14 +1,15 @@
 # Support
 
-## Use GitHub issues for
+## Use GitHub Issues For
 
 - reproducible bugs in the repository
 - documentation problems
-- feature requests for Codex, Claude Code, or Gemini CLI integration
+- installation problems for Codex, Claude Code, or Gemini CLI
+- feature requests related to the skill runtime or host integrations
 
-## Use email for
+## Use Email For
 
-- `全景图生成VR` API access requests
+- `全景图生成 VR` API capability requests
 - security reports
 - account provisioning questions tied to `UserID`, `IdentityID`, or region enablement
 
@@ -16,8 +17,16 @@ Contact:
 
 - `developer@realsee.com`
 
-## Before opening an issue
+## Before Opening An Issue
 
-- read `README.md`
-- check the host-specific docs in `docs/`
-- run `npm run ci`
+- read [README.md](./README.md)
+- check the host-specific guides in [docs/](./docs/)
+- run `npm run doctor:local` if the problem is environment-related
+- run `npm run ci` if the problem may be caused by local changes
+
+## Include In Bug Reports
+
+- the command you ran
+- whether you used Codex, Claude Code, Gemini CLI, or the direct runtime
+- the relevant error output
+- whether the problem reproduces on the public example data
